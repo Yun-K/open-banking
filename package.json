@@ -1,5 +1,5 @@
 {
-  "name": "OpenBank",
+  "name": "openbank",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -26,5 +26,14 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.ecs.vuw.ac.nz/course-work/swen325/2021/assignment2/t7/open-banking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
