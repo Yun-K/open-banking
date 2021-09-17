@@ -17,6 +17,7 @@ import {
     focused,
     size,
     color,
+    Image,
     TouchableOpacity,
     styleSheet
 } from 'react-native';
@@ -48,10 +49,62 @@ const Tabs = () => {
                 }
             }}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Payment" component={HomeScreen} />
-            <Tab.Screen name="Find Nearest Bank" component={HomeScreen} />
-            <Tab.Screen name="Setting" component={HomeScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{
+                tabBarIcon: ({ focused }) => (
+                    <View>
+                        <Image
+                            source={require('../../res/images/Home-icon.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: 30,
+                                height: 30
+                            }}
+                        />
+                    </View>
+                ),
+            }} />
+            <Tab.Screen name="Payment" component={HomeScreen} options={{
+                tabBarIcon: ({ focused }) => (
+                    <View>
+                        <Image
+                            source={require('../../res/images/Payment-icon.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: 30,
+                                height: 30
+                            }}
+                        />
+                    </View>
+                ),
+            }} />
+            <Tab.Screen name="Find Nearest Bank" component={HomeScreen} options={{
+                tabBarIcon: ({ focused }) => (
+                    <View>
+                        <Image
+                            source={require('../../res/images/Nearest-icon.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: 30,
+                                height: 30
+                            }}
+                        />
+                    </View>
+                ),
+            }} />
+            <Tab.Screen name="Setting" component={HomeScreen} options={{
+                tabBarIcon: ({ focused }) => (
+                    <View>
+                        <Image
+                            source={require('../../res/images/Setting-icon.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: 30,
+                                height: 30
+                            }}
+                        />
+                    </View>
+                ),
+            }} />
         </Tab.Navigator>
     );
 }
