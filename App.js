@@ -28,20 +28,15 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import HomeScreen from './src/screens/HomeScreen'
+import Tabs from './src/screens/Tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'HomeScreen' }}
-        />
-        {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
-      </Stack.Navigator>
+
+      < Tabs />
     </NavigationContainer>
   );
 };
