@@ -10,6 +10,9 @@ export default class Payment extends React.Component{
     render(){
         return(
             <View style = {styles.container}>
+              <Text>
+                hello
+              </Text>
             </View>          
             )
     }

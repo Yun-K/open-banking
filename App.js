@@ -27,20 +27,18 @@
    ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
  
-//  import HomeScreen from './src/screens/HomeScreen'
-//  import Tabs from './src/screens/Tabs'
  import Payment from './src/screens/Payment';
  import { NavigationContainer } from '@react-navigation/native';
- import { createNativeStackNavigator } from '@react-navigation/native-stack';
- const Stack = createNativeStackNavigator();
- const MyStack = () => {
-   return (
-     <NavigationContainer>
- 
-       < Tabs />
-     </NavigationContainer>
-   );
- };
+ import { render } from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
+export default class App extends React.Component {
+  render() {
+      return (
+          <View>
+              <Payment/>
+          </View>
+      );
+  }
+};
  
  // const Section = ({ children, title }): Node => {
  //   const isDarkMode = useColorScheme() === 'dark';
@@ -133,8 +131,5 @@
  //   },
  // });
  
- 
- 
- 
- export default MyStack;
+
  
