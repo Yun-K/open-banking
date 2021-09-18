@@ -41,7 +41,7 @@ const MyStack = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home1"
+          name="Home"
           component={Tabs}
           options={{ title: 'Welcome' }}
         />
