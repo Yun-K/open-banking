@@ -32,6 +32,8 @@ import Tabs from './src/screens/Tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddBankScreen from './src/screens/AddBankScreen';
+import MakePayment from './src/screens/MakePayment';
+import Managepayment from './src/screens/Managepayment';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
@@ -46,6 +48,8 @@ const MyStack = () => {
           options={{ title: 'Welcome' }}
         />
         <Stack.Screen name="AddBankScreen" component={AddBankScreen} />
+        <Stack.Screen name= "MakePayment"  component ={MakePayment} />
+        <Stack.Screen name="ManagePayment" component = {Managepayment}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

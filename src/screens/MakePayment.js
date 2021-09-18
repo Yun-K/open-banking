@@ -1,52 +1,32 @@
 import React from 'react';
-import{
-    View,
-    Text,
-    StyleSheet,
-    Button,
+import type { Node } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import {
     SafeAreaView,
-    Alert,
-    TouchableOpacity,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    styles,
+    useColorScheme,
+    View,
     Image
-}from 'react-native'
+} from 'react-native';
 
-export default class Payment extends React.Component{
-    render(){
-        return(
-            <View style = {styles.container}>
-               <TouchableOpacity onPress={() => Alert.alert('go to make payment')}>
-               <Image source={require("../../res/images/Make-payment.png")}
-               style={{
-                width: 400,
-                height: 120
-            }}/>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => Alert.alert('go to manage')}>
-               <Image source={require("../../res/images/Manage-payment.png")}
-               style={{
-                width: 400,
-                height: 110
-            }}/>
-              </TouchableOpacity>
-            </View>          
-            )
-    }
-     
-}
+import {
+    Colors,
+    DebugInstructions,
+    Header,
+    LearnMoreLinks,
+    ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 
-const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      backgroundColor: '#fff',
-    },
-    Button:{
-      backgroundColor: '#859a9b',
-      borderRadius: 20,
-      padding: 10,
-      marginBottom: 20,
-      shadowColor: '#303838',
-      shadowOffset: { width: 0, height: 5 },
-      shadowRadius: 10,
-      shadowOpacity: 0.35,
-    }
-  })
+
+const MakePayment = ({ navigation }) => {
+    return <Text>make a payment </Text>;
+
+};
+
+export default MakePayment

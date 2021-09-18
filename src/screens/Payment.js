@@ -1,7 +1,8 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import MakePayment from './MakePayment';
-import Managepayment from'./Managepayment'
-import {StackNavigator}from 'react-navigation'
+import ManagePayment from './Managepayment';
+import { NavigationContainer}from '@react-navigation/native'
 import{
     View,
     Text,
@@ -12,18 +13,19 @@ import{
     TouchableOpacity,
     Image
 }from 'react-native'
-export default class Payment extends React.Component{
-    render(){
+
+const Payment = ({ navigation }) => {
+   
         return(
             <View style = {styles.container}>
-               <TouchableOpacity onPress={() =>this.props.navigation.navigate('MakePayment')}>
+               <TouchableOpacity onPress={() =>navigation.navigate('MakePayment')}>
                <Image source={require("../../res/images/Make-payment.png")}
                style={{
                 width: 400,
                 height: 120
             }}/>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => Alert.alert('go to manage')}>
+              <TouchableOpacity onPress={() => navigation.navigate('ManagePayment')}>
                <Image source={require("../../res/images/Manage-payment.png")}
                style={{
                 width: 400,
@@ -32,23 +34,8 @@ export default class Payment extends React.Component{
               </TouchableOpacity>
             </View>          
             )
-    }
-    
      
 }
-
-const Stack = StackNavigator(
-{
-  MakePayment:{
-    screen:MakePayment,
-  },
-  Managepayment:{
-    screen:Managepayment,
-  },
-}
-
-);
-
 
 
 
@@ -69,5 +56,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.35,
   }
 })
+
+export default Payment
 
 
