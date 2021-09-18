@@ -31,12 +31,22 @@ import HomeScreen from './src/screens/HomeScreen'
 import Tabs from './src/screens/Tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AddBankScreen from './src/screens/AddBankScreen';
+
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
-    <NavigationContainer>
 
-      < Tabs />
+
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home1"
+          component={Tabs}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="AddBankScreen" component={AddBankScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
@@ -133,6 +143,9 @@ const MyStack = () => {
 // });
 
 
+
+
+// export default homeSStack
 
 
 export default MyStack;
