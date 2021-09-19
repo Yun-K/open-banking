@@ -3,7 +3,6 @@ import type { Node } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddBankScreen from './AddBankScreen'
-// import Tabs from './Tabs'
 import {
     SafeAreaView,
     ScrollView,
@@ -23,7 +22,6 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import Tabs from './Tabs';
 
 const HStack = createNativeStackNavigator();
 // function homeSStack() {
