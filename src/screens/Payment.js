@@ -20,17 +20,11 @@ const Payment = ({ navigation }) => {
             <View style = {styles.container}>
                <TouchableOpacity onPress={() =>navigation.navigate('MakePayment')}>
                <Image source={require("../../res/images/Make-payment.png")}
-               style={{
-                width: 400,
-                height: 120
-            }}/>
+               style={styles.images}/>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate('ManagePayment')}>
                <Image source={require("../../res/images/Manage-payment.png")}
-               style={{
-                width: 400,
-                height: 110
-            }}/>
+               style={styles.images}/>
               </TouchableOpacity>
             </View>          
             )
@@ -45,15 +39,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  Button:{
-    backgroundColor: '#859a9b',
-    borderRadius: 20,
-    padding: 10,
-    marginBottom: 20,
-    shadowColor: '#303838',
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
-    shadowOpacity: 0.35,
+  images:{
+    width: 400,
+    height: 110,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor:'black',
   }
 })
 

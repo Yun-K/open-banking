@@ -104,6 +104,7 @@ const MakePayment = ({ navigation }) => {
     borderColor: '#dddd',
     borderRadius:10,
     marginEnd:20,
+    marginStart:10,
   },
   images:{
     marginTop:20,
