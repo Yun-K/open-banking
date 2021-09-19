@@ -97,6 +97,7 @@ Step 2: Start your application, open a new terminal to run it
  - [React native docs](https://reactnative.dev/docs/environment-setup)
  - [Firebase doc](https://firebase.google.com/docs/admin/setup)
  - [**React Native Firebase doc**](https://rnfirebase.io/)
+ - [Usuage of firebase admin SDK and api](https://firebase.google.com/docs/reference/admin/node)
  - and so on ...
 
   

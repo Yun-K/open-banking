@@ -2,6 +2,8 @@
 
 This repo is for testing the basic fuction of firebase. For now, the draft is in `draft.js`. I looked up the following website to get start:
 > https://github.com/komavideo/LearnFirebase
+>
+> https://firebase.google.com/docs/reference/admin/node
 
 For windows, need to install node and npm first, and then, run the cmd as admin.
 ```bash

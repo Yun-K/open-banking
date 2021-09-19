@@ -9,7 +9,7 @@
  * Reference: https://github.com/komavideo/LearnFirebase
  */
 
-//read the private key , and then use the firebase package to do the initialization
+//  read the private key , and then use the firebase package to do the initialization
 // if no error , then our project is initialized correctly and successfully
 var admin = require('firebase-admin');
 var serviceAccount = require('../open-banking-76572-firebase-adminsdk-ys3u7-905da816f3.json'); //private key
