@@ -55,6 +55,7 @@ async function updData() {
 // delData()
 //delete it 
 async function delData() {
+
     let deleteDoc = await db.collection('users').doc('RNd4RyaDsHE8fsQr6DV1').delete();
     console.log(deleteDoc)
 }

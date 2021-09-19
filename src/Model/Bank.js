@@ -15,6 +15,7 @@ class Bank {
         this.db = admin.firestore();
         // get the timestamp of firebase Server, so we can use this to do CRUD operation
         this.FieldValue = admin.firestore.FieldValue;
+        this.dataBaseID = -1;
     }
 
 
@@ -31,7 +32,45 @@ class Bank {
             password: this.password,
             regdate: this.FieldValue.serverTimestamp()
         });
-        console.log('Added document with ID: ', res.id);
+        this.dataBaseID = res.id; //update the document id 
+        console.log('Added document with ID: ', this.dataBaseID);
+    }
+
+    async delete_from_database() {
+        if (this.dataBaseID === -1) {
+            var message = this.dataBaseID;
+            throw Error('This Bank instance is not in firebase: ' + (message || ''));
+        }
+
+        let deleteDoc = await this.db.collection('Bank').doc(this.dataBaseID).delete();
+        console.log(deleteDoc);
+        console.log('delete this Bank instance from Firebase successfully!')
+
+        this.dataBaseID = -1;
+    }
+
+    async update_to_firebase(bankName, bankID, userName, password) {
+        const bankRef = this.db.collection('users').doc(this.dataBaseID);
+        const res = await bankRef.update({
+            bankName: bankName,
+            bankID: bankID,
+            userName: userName,
+            password: password,
+            upddate: FieldValue.serverTimestamp()
+        });
+    }
+
+
+    async update_to_firebase() {
+        const bankRef = this.db.collection('users').doc(this.dataBaseID);
+        const res = await bankRef.update({
+
+            upddate: FieldValue.serverTimestamp()
+        });
+    }
+
+    async get_from_firebase() {
+        return await this.db.collection('Bank').doc(this.dataBaseID).get();
     }
 
 
@@ -40,5 +79,7 @@ class Bank {
 
 
 }
-bank = new Bank('ANZ', '12345', 'Yun', '12345');
-bank.addToFirebase();
+bank = new Bank('ANZ', '12345', 'zhou', '12345');
+// bank.addToFirebase();
+// bank.delete_from_database();
+// bank.printDocumentID();
