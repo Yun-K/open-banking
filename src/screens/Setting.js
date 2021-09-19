@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Node } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,6 +11,7 @@ import {
     useColorScheme,
     View,
     TouchableOpacity,
+    TextInput,
     Image,
     Button
 } from 'react-native';
@@ -27,8 +28,22 @@ import {
     Caption,
     TouchableRipple,
 } from 'react-native-paper';
+import Modal from "react-native-modal";
 
 const Setting = ({ navigation }) => {
+
+    const [isEditUserNameVisible, setModalVisible] = useState(false);
+    const ShowEditUN = () => {
+        setModalVisible(!isEditUserNameVisible);
+    };
+    const [username, setText] = useState('skr_skr');
+
+    const [isEditEmailNameVisible, setEModalVisible] = useState(false);
+    const ShowEditEmail = () => {
+        setEModalVisible(!isEditEmailNameVisible);
+    };
+    const [email, setEText] = useState('skr_skr@gmail.com');
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfoSection}>
@@ -42,7 +57,7 @@ const Setting = ({ navigation }) => {
                             marginTop: 15,
                             marginBottom: 5,
                         }]}>Skr Skr</Title>
-                        <Caption style={styles.caption}>@skr_skr</Caption>
+                        <Caption style={styles.caption}>{username}</Caption>
                     </View>
                 </View>
             </View>
@@ -52,23 +67,47 @@ const Setting = ({ navigation }) => {
                 <View style={{ flexDirection: 'row' }}>
                     <Text>Username:                                                           </Text>
 
-                    <TouchableOpacity style={styles.commandButton} onPress={() => { }}>
+                    <TouchableOpacity style={styles.commandButton} onPress={ShowEditUN}>
                         <Text style={styles.panelButtonTitle}>        Edit</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
-                    <Text style={{ color: "#777777", marginLeft: 20 }}>Skr_Skr_123</Text>
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>{username}</Text>
                 </View>
+                <Modal isVisible={isEditUserNameVisible}>
+                    <View>
+                        <Text style={{ color: "#dddddd", fontSize: 20 }}>Edit Username</Text>
+                        <TextInput
+                            style={{ height: 50, color: "#dddddd" }}
+                            placeholder="Type here to translate!"
+                            onChangeText={username => setText(username)}
+                            defaultValue={username}
+                        />
+                        <Button title="save" onPress={ShowEditUN} />
+                    </View>
+                </Modal>
                 <View style={{ flexDirection: 'row' }}>
                     <Text>Email Address:                                                    </Text>
-                    <TouchableOpacity style={styles.commandButton} onPress={() => { }}>
+                    <TouchableOpacity style={styles.commandButton} onPress={ShowEditEmail}>
                         <Text style={styles.panelButtonTitle}>        Edit</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
-                    <Text style={{ color: "#777777", marginLeft: 20 }}>swen325@skr.com</Text>
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
                 </View>
-            </View>
+                <Modal isVisible={isEditEmailNameVisible}>
+                    <View >
+                        <Text style={{ color: "#dddddd", fontSize: 20 }}>Edit Email</Text>
+                        <TextInput
+                            style={{ height: 50, color: "#dddddd" }}
+                            placeholder="Type here to translate!"
+                            onChangeText={email => setEText(email)}
+                            defaultValue={email}
+                        />
+                        <Button title="save" onPress={ShowEditEmail} />
+                    </View>
+                </Modal>
+            </View >
 
             <Text style={{ paddingHorizontal: 30 }}>KiwiSaver Investment</Text>
             <View style={styles.infoBoxWrapper}>
@@ -92,7 +131,9 @@ const Setting = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View> */}
-        </SafeAreaView>
+
+
+        </SafeAreaView >
 
     );
 };
@@ -105,6 +146,14 @@ export default Setting
 
 
 const styles = StyleSheet.create({
+    input: {
+        alignItems: "center",
+        height: 40,
+        width: 150,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+    },
     container: {
         flex: 1,
     },
@@ -137,21 +186,6 @@ const styles = StyleSheet.create({
         width: '50%',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    menuWrapper: {
-        marginTop: 10,
-    },
-    menuItem: {
-        flexDirection: 'row',
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-    },
-    menuItemText: {
-        color: '#777777',
-        marginLeft: 20,
-        fontWeight: '600',
-        fontSize: 16,
-        lineHeight: 26,
     },
     commandButton: {
         // padding: 15,
