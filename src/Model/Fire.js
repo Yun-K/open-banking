@@ -21,6 +21,8 @@ class Fire {
     }
 
 
+
+
 }
-Fire.shared = new Fire();
+Fire.shared = new Fire(); //shared Fire instance
 export default Fire;
