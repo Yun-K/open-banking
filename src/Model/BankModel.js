@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 //read the private key to get the  authentation
-var serviceAccount = require("./myfirebase-483d9-firebase-adminsdk-hthhq-c8397c40c8.json");
+var serviceAccount = require("./open-banking-76572-firebase-adminsdk-ys3u7-905da816f3.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
@@ -9,9 +9,8 @@ let db = admin.firestore();
 // get the timestamp of firebase Server, so we can use this to do CRUD operation
 const FieldValue = admin.firestore.FieldValue;
 
-
-async function add(Bank bankToAdd) {
-    const res = await db.collection('Bank').add({
+function add(bankToAdd) {
+    const res = db.collection('Bank').add({
         bankName: bankToAdd.bankName,
         bankID: bankToAdd.bankID,
         userName: bankToAdd.userName,
@@ -20,4 +19,7 @@ async function add(Bank bankToAdd) {
     });
     console.log('Added document with ID: ', res.id);
 }
-export default BankModel
+
+
+
+// add(new Bank('ANZ', '12345', 'Yun', '12345'));
