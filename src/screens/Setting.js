@@ -124,13 +124,38 @@ const Setting = ({ navigation }) => {
                 </View>
             </View>
 
-            {/* <View style={styles.userInfoSection}>
-
-                <TouchableOpacity style={styles.commandButton} onPress={() => { }}>
-                    <Text style={styles.panelButtonTitle}></Text>
+            <View style={styles.userInfoSection}>
+                <TouchableOpacity style={styles.wrapper} onPress={() => { }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Image
+                            source={require('../../res/images/TouchID-icon.png')}
+                            style={{ width: 25, height: 25 }}
+                        />
+                        <Text style={{ alignItems: 'center' }}> Touch ID</Text>
+                    </View>
                 </TouchableOpacity>
 
-            </View> */}
+                <TouchableOpacity style={styles.wrapper} onPress={() => { }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Image
+                            source={require('../../res/images/Password-icon.png')}
+                            style={{ width: 25, height: 25 }}
+                        />
+                        <Text style={{ alignItems: 'center' }}> Change Password</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.wrapper} onPress={() => { }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Image
+                            source={require('../../res/images/Rate-icon.png')}
+                            style={{ width: 25, height: 25 }}
+                        />
+                        <Text style={{ alignItems: 'center' }}> Rate Our App</Text>
+                    </View>
+                </TouchableOpacity>
+
+            </View>
 
 
         </SafeAreaView >
@@ -181,6 +206,16 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         flexDirection: 'row',
         height: 100,
+    },
+    wrapper: {
+        marginTop: 15,
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: 2,
+        borderTopColor: '#dddddd',
+        borderTopWidth: 2,
+        flexDirection: 'row',
+        height: 50,
+        alignItems: 'center',
     },
     infoBox: {
         width: '50%',
