@@ -87,7 +87,7 @@ const MakePayment = ({navigation}) => {
               height: 45,
               borderRadius: 10,
             }}>
-            <Text style={Scrollstyles.text}>Choice Payee ></Text>
+            <Text style={Scrollstyles.text}>Choice Payee here +</Text>
           </TouchableOpacity>
           <Text
             style={{

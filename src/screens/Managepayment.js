@@ -2,6 +2,8 @@ import React from 'react';
 import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import DialogInput from 'react-native-dialog-input';
+import AddPayee from './AddPayee';
 
 import {
   SafeAreaView,
@@ -26,9 +28,21 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
 
 const ManagePayment = ({navigation}) => {
   const [Search, search] = React.useState('Search');
+  const [isDialogVisible, setDialogVisible] = React.useState(false);
+
+  const NewPayee = props => {
+    return (
+      <View>
+        <TouchableOpacity style={Managestyles.Payees}>
+          <Text style={Managestyles.TextName}> {props.name} </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
     <SafeAreaView>
       {/* for the Search  */}
@@ -44,7 +58,10 @@ const ManagePayment = ({navigation}) => {
         />
       </View>
       <View style={Managestyles.View}>
-        <TouchableOpacity style={Managestyles.Payees}>
+        {/* TODO: make function each time can added a payees */}
+        <TouchableOpacity
+          style={Managestyles.Payees}
+          onPress={() => navigation.navigate('AddPayee')}>
           <Text style={Managestyles.TextName}>
             + Add a new person or company here
           </Text>
@@ -55,13 +72,8 @@ const ManagePayment = ({navigation}) => {
         <ScrollView style={Managestyles.ScrollView}>
           <Text style={Managestyles.Text}>YOUR SAVED PAYEES</Text>
           {/* Payees (Kevin and Alvin)  */}
-          {/* TODO: make function each time can added a payees */}
-          <TouchableOpacity style={Managestyles.Payees}>
-            <Text style={Managestyles.TextName}> Kevin </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={Managestyles.Payees}>
-            <Text style={Managestyles.TextName}> Alvin </Text>
-          </TouchableOpacity>
+          <NewPayee name="Kevin" />
+          <NewPayee name="Alvin" />
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -123,6 +135,12 @@ const Managestyles = StyleSheet.create({
     fontSize: 17,
     marginTop: 10,
     marginLeft: 20,
+  },
+  dialog: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
