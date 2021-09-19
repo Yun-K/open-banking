@@ -1,3 +1,5 @@
+import firestore from '@react-native-firebase/firestore';
+
 class Bank {
     constructor(bankName, bankID, userName, password) {
         this.bankName = bankName;
@@ -72,10 +74,6 @@ class Bank {
     async get_from_firebase() {
         return await this.db.collection('Bank').doc(this.dataBaseID).get();
     }
-
-
-
-
 
 
 }
