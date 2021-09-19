@@ -1,13 +1,6 @@
-// get our db 
-let db = admin.firestore();
-// get the timestamp of firebase Server, so we can use this to do CRUD operation
-const FieldValue = admin.firestore.FieldValue;
-
-
-
 const admin = require('firebase-admin');
 //read the private key to get the  authentation
-var serviceAccount = require("./myfirebase-483d9-firebase-adminsdk-hthhq-c8397c40c8.json");
+var serviceAccount = require("./open-banking-76572-firebase-adminsdk-ys3u7-905da816f3.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
@@ -59,3 +52,29 @@ async function delData() {
     let deleteDoc = await db.collection('users').doc('RNd4RyaDsHE8fsQr6DV1').delete();
     console.log(deleteDoc)
 }
+
+function get_from_firebase(bankID) {
+    var matchedEntry = null;
+    db.collection('Bank').get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                // if (doc.data.bankID === bankID) {
+                //     matchedEntry = doc.data();
+                //     return;
+                // }
+                matchedEntry = doc.data();
+                console.log(doc.id, '=>', matchedEntry);
+            });
+        })
+        .catch((err) => {
+            console.log('Error getting documents', err);
+        });
+    if (matchedEntry === null) {
+        return null; //no ENtry found
+    }
+    console.log('', matchedEntry.bankName);
+    return matchedEntry;
+}
+
+// var matched = get_from_firebase('12345');
+// console.log('userName: ', matched);

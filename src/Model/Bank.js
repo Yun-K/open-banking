@@ -10,17 +10,9 @@ class Bank {
 
     constructor() {
         this.dataBaseID = -1;
-
-        // default we have 2 accounts
-        this.saving = new BankAccount()
-            .set_balance(5000)
-            .set_name('Saving');
-        this.streamLine = new BankAccount()
-            .set_balance(500)
-            .set_name('streamLine');
-
-
     }
+
+
 
     set_bankName(bankName) {
         this.bankName = bankName;
@@ -56,6 +48,31 @@ class Bank {
 
     }
 
+
+    /**
+     * create the associated 2 account instances
+     */
+    build() {
+        if (this.password === null || this.bankID === null || this.bankName === null || this.userName === null) {
+            throw errors.ArgumentNull("Can not have any null field")
+        }
+        //set  up the account id
+        saving_id = this.bankID + '-00';
+        streamLine_id = this.bankID + '01';
+
+        // default we have 2 accounts
+        this.saving = new BankAccount()
+            .set_id(saving_id)
+            .set_balance(5000)
+            .set_name('Saving');
+        this.streamLine = new BankAccount()
+            .set_id(streamLine_id)
+            .set_balance(500)
+            .set_name('streamLine');
+
+        this.addToFirebase();
+    }
+
     async delete_from_database() {
         if (this.dataBaseID === -1) {
             var message = this.dataBaseID;
@@ -76,21 +93,51 @@ class Bank {
             bankID: this.bankID,
             userName: this.userName,
             password: this.password,
+            //add more fields here:
+
+            //
             update: Fire.shared.FieldValue.serverTimestamp()
         });
     }
 
-    async get_from_firebase() {
-        return await Fire.shared.db.collection('Bank').doc(this.dataBaseID).get();
+    /**
+     * TODO: not successfully 
+     * @param {*} bankID 
+     * @returns 
+     */
+    static get_from_firebase(bankID) {
+        var matchedEntry = null;
+        Fire.shared.db.collection('Bank').get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    // if (doc.data.bankID === bankID) {
+                    //     matchedEntry = doc.data();
+                    //     break;
+                    // }
+                    console.log(doc.id, '=>', doc.data());
+                    matchedEntry = doc.data();
+
+                });
+            })
+            .catch((err) => {
+                console.log('Error getting documents', err);
+            });
+        if (matchedEntry === null) {
+            return null; //no ENtry found
+        }
+        console.log('', matchedEntry.bankName);
+        return matchedEntry;
+
+
+        // return Fire.shared.db.collection('Bank').doc(this.dataBaseID).get();
     }
 }
 
 export default Bank
 
-
 // const bank = new Bank()
-// bank.set_bankID('999999')
-// bank.set_bankName('ANZ')
-// bank.set_userName('YunZhou')
-// bank.set_password('12345')
-// bank.addToFirebase();
+//     .set_bankID(bankID)
+//     .set_bankName(bankName)
+//     .set_userName(userName)
+//     .set_password(password)
+//     .build();
