@@ -1,23 +1,46 @@
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
+// import { observable, action } from 'mobx'
+// import uuid from 'uuid/v4'
 
 class Bank {
-    constructor(bankName, bankID, userName, password) {
-        this.bankName = bankName;
-        this.bankID = bankID;
-        this.userName = userName;
-        this.password = password;
-        //
+
+    constructor() { //bankName, bankID, userName, password) {
+        // this.bankName = bankName;
+        // this.bankID = bankID;
+        // this.userName = userName;
+        // this.password = password;
+
+        //firebase stuff
         const admin = require('firebase-admin');
         //read the private key to get the  authentation
         var serviceAccount = require("./open-banking-76572-firebase-adminsdk-ys3u7-905da816f3.json");
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount),
         });
-        // get our db
+        //set  our db
         this.db = admin.firestore();
-        // get the timestamp of firebase Server, so we can use this to do CRUD operation
+
+        // s
+        // the timestamp of firebase Server, so we can use this to do CRUD operation
         this.FieldValue = admin.firestore.FieldValue;
         this.dataBaseID = -1;
+        // default we have 2 accounts
+
+    }
+
+    set_bankName(bankName) {
+        this.bankName = bankName;
+    }
+
+    set_bankID(bankID) {
+        this.bankID = bankID;
+    }
+
+    set_userName(userName) {
+        this.userName = userName;
+    }
+    set_password(password) {
+        this.password = password;
     }
 
 
@@ -35,7 +58,7 @@ class Bank {
             regdate: this.FieldValue.serverTimestamp()
         });
         this.dataBaseID = res.id; //update the document id 
-        console.log('Added document with ID: ', this.dataBaseID);
+        console.log('Added Bank with ID: ', this.dataBaseID);
     }
 
     async delete_from_database() {
@@ -51,33 +74,31 @@ class Bank {
         this.dataBaseID = -1;
     }
 
-    async update_to_firebase(bankName, bankID, userName, password) {
-        const bankRef = this.db.collection('users').doc(this.dataBaseID);
-        const res = await bankRef.update({
-            bankName: bankName,
-            bankID: bankID,
-            userName: userName,
-            password: password,
-            upddate: FieldValue.serverTimestamp()
-        });
-    }
-
-
     async update_to_firebase() {
-        const bankRef = this.db.collection('users').doc(this.dataBaseID);
+        const bankRef = this.db.collection('Bank').doc(this.dataBaseID);
         const res = await bankRef.update({
-
-            upddate: FieldValue.serverTimestamp()
+            bankName: this.bankName,
+            bankID: this.bankID,
+            userName: this.userName,
+            password: this.password,
+            update: this.FieldValue.serverTimestamp()
         });
     }
+
+
+
 
     async get_from_firebase() {
         return await this.db.collection('Bank').doc(this.dataBaseID).get();
     }
-
-
 }
-bank = new Bank('ANZ', '12345', 'zhou', '12345');
-// bank.addToFirebase();
-// bank.delete_from_database();
-// bank.printDocumentID();
+
+// export default Bank
+
+
+const bank = new Bank()
+bank.set_bankID('999999')
+bank.set_bankName('ANZ')
+bank.set_userName('YunZhou')
+bank.set_password('12345')
+bank.addToFirebase();
