@@ -17,14 +17,22 @@ class Bank {
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount),
         });
-        //set  our db
+        //set our db
         this.db = admin.firestore();
 
-        // s
+
         // the timestamp of firebase Server, so we can use this to do CRUD operation
         this.FieldValue = admin.firestore.FieldValue;
         this.dataBaseID = -1;
+
         // default we have 2 accounts
+        this.saving = new BankAccount()
+            .set_balance(5000)
+            .set_name('Saving');
+        this.streamLine = new BankAccount()
+            .set_balance(500)
+            .set_name('streamLine');
+
 
     }
 
@@ -84,9 +92,6 @@ class Bank {
             update: this.FieldValue.serverTimestamp()
         });
     }
-
-
-
 
     async get_from_firebase() {
         return await this.db.collection('Bank').doc(this.dataBaseID).get();
