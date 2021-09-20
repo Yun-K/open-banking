@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
+import GPS from './GPS';
+import Setting from './Setting';
 
 import {
     SafeAreaView,
@@ -78,7 +80,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
-            <Tab.Screen name="Find Nearest Bank" component={HomeScreen} options={{
+            <Tab.Screen name="Find Nearest Bank" component={GPS} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
                         <Image
@@ -92,7 +94,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
-            <Tab.Screen name="Setting" component={HomeScreen} options={{
+            <Tab.Screen name="Setting" component={Setting} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
                         <Image
