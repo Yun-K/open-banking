@@ -19,10 +19,6 @@ class Fire {
         // the timestamp of firebase Server, so we can use this to do CRUD operation
         this.FieldValue = admin.firestore.FieldValue;
     }
-
-
-
-
 }
 Fire.shared = new Fire(); //shared Fire instance
 export default Fire;
