@@ -19,7 +19,7 @@ class Bank {
     }
 
     set_bankID(bankID) {
-        this.bankID = bankID;
+        this.id = id;
     }
 
     set_userName(userName) {
@@ -35,16 +35,39 @@ class Bank {
      * push this Bank insatnce into the firebase
      * 
      */
-    async addToFirebase() {
-        const res = await Fire.shared.db.collection('Bank').add({
-            bankName: this.bankName,
-            bankID: this.bankID,
-            userName: this.userName,
-            password: this.password,
-            regdate: Fire.shared.FieldValue.serverTimestamp()
-        });
-        this.dataBaseID = res.id; //update the document id 
-        console.log('Added Bank with ID: ', this.dataBaseID);
+    addToFirebase() {
+        Fire.shared.db
+            .collection('Bank')
+            .doc(this.id) //set the document id to be the account id 
+            .set({
+                bankName: this.bankName,
+                id: this.id,
+                userName: this.userName,
+                password: this.password,
+                //add more fields here:
+
+
+                //the register date of this entry
+                regdate: Fire.shared.FieldValue.serverTimestamp()
+
+
+            })
+            .then(() => {
+                console.log('Bank added!  id:', this.id);
+            });
+
+
+
+
+        // const res = await Fire.shared.db.collection('Bank').add({
+        // bankName: this.bankName,
+        //     id: this.id,
+        //     userName: this.userName,
+        //     password: this.password,
+        //     regdate: Fire.shared.FieldValue.serverTimestamp()
+        // });
+        // this.dataBaseID = res.id; //update the document id 
+        // console.log('Added Bank with ID: ', this.dataBaseID);
 
     }
 
@@ -53,12 +76,12 @@ class Bank {
      * create the associated 2 account instances
      */
     build() {
-        if (this.password === null || this.bankID === null || this.bankName === null || this.userName === null) {
+        if (this.password === null || this.id === null || this.bankName === null || this.userName === null) {
             throw errors.ArgumentNull("Can not have any null field")
         }
         //set  up the account id
-        saving_id = this.bankID + '-00';
-        streamLine_id = this.bankID + '01';
+        saving_id = this.id + '-00';
+        streamLine_id = this.id + '01';
 
         // default we have 2 accounts
         this.saving = new BankAccount()
@@ -90,7 +113,7 @@ class Bank {
         const bankRef = Fire.shared.db.collection('Bank').doc(this.dataBaseID);
         const res = await bankRef.update({
             bankName: this.bankName,
-            bankID: this.bankID,
+            id: this.id,
             userName: this.userName,
             password: this.password,
             //add more fields here:
@@ -102,15 +125,15 @@ class Bank {
 
     /**
      * TODO: not successfully 
-     * @param {*} bankID 
+     * @param {*} id 
      * @returns 
      */
-    static get_from_firebase(bankID) {
+    static get_from_firebase(id) {
         var matchedEntry = null;
         Fire.shared.db.collection('Bank').get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
-                    // if (doc.data.bankID === bankID) {
+                    // if (doc.data.id === id) {
                     //     matchedEntry = doc.data();
                     //     break;
                     // }
@@ -136,7 +159,7 @@ class Bank {
 export default Bank
 
 // const bank = new Bank()
-//     .set_bankID(bankID)
+//     .set_bankID(id)
 //     .set_bankName(bankName)
 //     .set_userName(userName)
 //     .set_password(password)
