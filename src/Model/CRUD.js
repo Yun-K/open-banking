@@ -1,7 +1,10 @@
 import BankAccount from './BankAccount.js';
 import Bank from './Bank.js';
 import Fire from './Fire.js';
-
+import Payee from './Payee.js';
+import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
+import BankViewModel from '../ViewModel/BankViewModel.js';
+import PayeeViewModel from '../ViewModel/PayeeViewModel.js'
 
 function addLog(logList) {
     for (var i = 0; i <= 1; i++) {
@@ -9,9 +12,10 @@ function addLog(logList) {
         Fire.shared.db.collection('BankAccount')
             .doc(account_id)
             .set({
+                logs: logList,
                 id: account_id,
+                name: 'Saving',
                 balance: 5000,
-                log: logList,
                 regdate: Fire.shared.FieldValue.serverTimestamp()
             })
             .then(() => {
@@ -20,7 +24,7 @@ function addLog(logList) {
     }
 }
 
-
+// addLog([])
 
 
 var amount = 10
@@ -59,11 +63,13 @@ var s = stack.concat(stack1)
 
 
 
-let id = '00-00-00-00';
-let bankPromise = BankAccount.get_from_firebase(id);
 
-// var bankAccount_inst = null;
+let my_id = '00-00-00-00';
+let target_id = '00-00-00-01';
+BankAccount.make_payment(my_id, target_id, 100);
 
-bankPromise.then(function(result) {
-    console.log(result) // "Some User token"
-})
+
+// let notExistID = 'u0u89h9'
+// let t = BankAccount.get_from_firebase(id)
+
+// console.log(acc)

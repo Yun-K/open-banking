@@ -1,16 +1,16 @@
+import Bank from './Bank.js';
 import Fire from './Fire.js';
-// import firebase from 'firebase/app';
-// import 'firebase/firestore';
+import Payee from './Payee.js';
+import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
+import BankViewModel from '../ViewModel/BankViewModel.js';
+import PayeeViewModel from '../ViewModel/PayeeViewModel.js'
 
 class BankAccount {
 
     constructor() {
-
         //use push() to push to the stack,
         //and pop() to pop from the stack
         this.logs = [];
-
-
     }
 
     //=============================================
@@ -41,8 +41,6 @@ class BankAccount {
         this.balance = balance;
     }
 
-
-
     build() {
         if (this.id === null || this.balance === null || this.name === null) {
             throw errors.ArgumentNull("Can not have any null field")
@@ -50,20 +48,6 @@ class BankAccount {
         this.addToFirebase();
     }
 
-
-    //=============================================
-    //Below are the local  CRUD operation
-    //=============================================
-
-    add_amount(amount) {
-        this.balance += amount;
-        this.update_balance();
-    }
-
-    subtract_amount(amount) {
-        this.balance -= amount;
-        this.update_balance();
-    }
 
     //=============================================
     // Below are the Firebase CRUD
@@ -108,8 +92,8 @@ class BankAccount {
      * 
      * This will update new logs and balance changed.
      */
-    update_to_firebase() {
-        const accountRef = Fire.shared.db.collection('BankAccount').doc(this.id);
+    async update_to_firebase() {
+        const accountRef = await Fire.shared.db.collection('BankAccount').doc(this.id);
         let res = accountRef.update({
             balance: this.balance,
             //add more fields here:
@@ -118,41 +102,70 @@ class BankAccount {
             //the update time stamp
             update: Fire.shared.FieldValue.serverTimestamp()
         });
+
     }
 
     /**
      * 
-     * @param {*} targetAccountId the unique target account id 
-     * @param {*} amount amount of money you want to pay to the target
+     * @param {*} target_id the unique target account id 
+     * @param {*} amountToPay amount of money you want to pay to the target
      */
-    make_payment(targetAccountId, amount) {
-        if (amount <= 0) {
+    static make_payment(my_id, target_id, amountToPay) {
+        if (amountToPay <= 0) {
             throw new Error('The money must be positive !');
         }
-        //get the Bank account
-        let target_bankAccount = get_BankAccount_from_firebase(targetAccountId);
-        //do the real add/ subtract 
-        this.subtract_amount(amount);
-        target_bankAccount.add_amount(amount);
 
+        //get the promise
+        let my_account = BankAccount.get_from_firebase(my_id);
+        //update my account inside the promise
+        my_account.then(function(account) {
+            if (account === null) {
+                throw new Error('My id does not exist!');
+            }
+            if (account.amount < amountToPay) {
+                throw new Error('You dont have enough money to pay!');
+            }
 
-        //TODO: Need to implement associate the log history 
-        let my_log = {
-            Date: new Date(),
-            Balance: amount * -1,
-            Target: target_bankAccount.id
-        }
+            account.balance -= amountToPay;
 
-        let target_log = {
-            Date: new Date(),
-            Balance: Math.abs(amount),
-            Target: target_bankAccount.id
-        }
+            let current_log = {
+                date: new Date(),
+                balance: amountToPay * -1, //record 
+                target: target_id
+            }
 
-        //append log into the database
+            //concat old and new  logs together 
+            let old = account.logs;
+            let concatLogs = old.concat(current_log);
 
+            account.logs = concatLogs
+            account.update_to_firebase()
 
+        })
 
+        //get the target and update
+        let target_bankAccount = BankAccount.get_from_firebase(target_id);
+        target_bankAccount.then(function(account) {
+            if (account === null) {
+                throw new Error('Target id does not exist!');
+            }
+
+            account.balance = account.balance + amountToPay;
+
+            let target_log = {
+                date: new Date(),
+                balance: Math.abs(amountToPay),
+                target: my_id
+            }
+
+            //concat old and new  logs together 
+            let old = account.logs
+            let concatLogs = old.concat(target_log);
+            account.logs = concatLogs;
+            account.update_to_firebase()
+        })
+
+        return BankAccount.get_from_firebase(my_id)
 
 
     }
@@ -161,11 +174,13 @@ class BankAccount {
     //=============================================================
     // Static method for getting the instance from the firebase
     //=============================================================
-
-
-
     /**
-     * TODO: https://github.dev/firebase/snippets-web/blob/81fcf30888909936d4898421e858da809f8cf595/firestore/test.firestore.js#L251-L263
+     * Get and return the BankAccount instance from the firebase.
+     * 
+     * 
+     * NOte: this is an async function, so it will return promise!!
+     * You need to get and handle this returned instance by using the promise way.
+     * 
      * @param {*} ID the account id 
      */
     static async get_from_firebase(id) {
@@ -194,7 +209,7 @@ class BankAccount {
                 return bankAccount;
             }
         };
-        var output =
+        let output =
             await Fire.shared.db.collection('BankAccount').doc(id)
             .withConverter(accountConverter)
             .get().then((doc) => {
@@ -206,26 +221,16 @@ class BankAccount {
 
                 } else {
                     console.log("No such document!");
+                    return null;
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
             });
-        // await delay(3000);
-        // console.log(output);
-        // output.then(function(result) {
-        //     console.log(result) // "Some User token"
-        // })
 
+
+        // console.log("output:\n", output)
         return output;
-
-        //bankPromise.then(function(result) {
-        // console.log(result) // "Some User token"
-        // })
-
-
     }
-
-
 
 }
 

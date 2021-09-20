@@ -9,7 +9,7 @@ import BankAccount from './BankAccount.js';
 class Bank {
 
     constructor() {
-        this.dataBaseID = -1;
+
     }
 
 
@@ -35,8 +35,8 @@ class Bank {
      * push this Bank insatnce into the firebase
      * 
      */
-    addToFirebase() {
-        Fire.shared.db
+    async addToFirebase() {
+        await Fire.shared.db
             .collection('Bank')
             .doc(this.id) //set the document id to be the account id 
             .set({
@@ -56,18 +56,6 @@ class Bank {
                 console.log('Bank added!  id:', this.id);
             });
 
-
-
-
-        // const res = await Fire.shared.db.collection('Bank').add({
-        // bankName: this.bankName,
-        //     id: this.id,
-        //     userName: this.userName,
-        //     password: this.password,
-        //     regdate: Fire.shared.FieldValue.serverTimestamp()
-        // });
-        // this.dataBaseID = res.id; //update the document id 
-        // console.log('Added Bank with ID: ', this.dataBaseID);
 
     }
 
