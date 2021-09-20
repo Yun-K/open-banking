@@ -39,6 +39,7 @@ const Payees = [
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
+
 const ManagePayment = ({navigation}) => {
   const [Search, search] = React.useState('Search');
   const [refreshing, setRefreshing] = React.useState(false);
