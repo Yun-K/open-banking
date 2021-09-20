@@ -12,7 +12,7 @@ const FieldValue = admin.firestore.FieldValue;
 // addData()
 async function addData() {
     for (i = 1; i <= 5; i++) {
-        const res = await db.collection('users').add({
+        const res = await db.collection('BankAccount').add({
             name: '用户' + i,
             sex: i % 2 == 0 ? '男' : '女',
             regdate: FieldValue.serverTimestamp()
@@ -78,3 +78,35 @@ function get_from_firebase(bankID) {
 
 // var matched = get_from_firebase('12345');
 // console.log('userName: ', matched);
+
+
+
+let a = {
+    Date: new Date(),
+    Balance: -10,
+    Target: 'BEN'
+}
+
+let b = {
+    Date: new Date(),
+    Balance: -10,
+    Target: 'BEN'
+}
+
+var stack = []
+stack.push(a)
+stack.push(b)
+
+addLog(stack)
+
+function addLog(logList) {
+    for (i = 0; i <= 1; i++) {
+        var res = db.collection('BankAccount').add({
+            id: '00-00-00-0' + i,
+            balance: 5000,
+            log: logList,
+            regdate: FieldValue.serverTimestamp()
+        });
+        console.log('Added document with ID: ', res.id);
+    }
+}

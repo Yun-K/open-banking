@@ -5,9 +5,21 @@ import Fire from './Fire.js';
 class BankAccount {
 
     constructor() {
+        //use push() to push to the stack,
+        //and pop() to pop from the stack
+        this.log_list = []
+
 
     }
 
+    //=============================================
+    // setter method are for the constructor use
+    //=============================================
+
+    /**
+     * 
+     * @param {*} id account id
+     */
     set_id(id) {
         this.id = id;
     }
@@ -23,6 +35,10 @@ class BankAccount {
         this.balance = balance;
     }
 
+    //=============================================
+    //Below are the local  CRUD operation
+    //=============================================
+
     add_amount(amount) {
         this.balance += amount;
         this.update_balance();
@@ -32,6 +48,10 @@ class BankAccount {
         this.balance -= amount;
         this.update_balance();
     }
+
+    //=============================================
+    // Below are the Firebase CRUD
+    //=============================================
 
     /**
      * push this BankAccount insatnce into the firebase
@@ -63,7 +83,7 @@ class BankAccount {
      */
     update_balance() {
         const accountRef = Fire.shared.db.collection('BankAccount').doc(this.dataBaseID);
-        const res = await bankRef.update({
+        let res = await accountRef.update({
             balance: this.balance,
             //add more fields here:
 
@@ -83,13 +103,28 @@ class BankAccount {
             throw new Error('The money must be positive !');
         }
         //get the Bank account
-        const target_bankAccount = get_BankAccount_from_firebase(targetAccountId);
-
+        let target_bankAccount = get_BankAccount_from_firebase(targetAccountId);
+        //do the add/ subtract 
         this.subtract_amount(amount);
         target_bankAccount.add_amount(amount);
 
 
         //TODO: Need to implement associate the log history 
+        let my_log = {
+            Date: new Date(),
+            Balance: amount * -1,
+            Target: target_bankAccount.id
+        }
+
+        let target_log = {
+            Date: new Date(),
+            Balance: Math.abs(amount),
+            Target: target_bankAccount.id
+        }
+
+        //append log into the field: log list 
+
+
 
 
     }
