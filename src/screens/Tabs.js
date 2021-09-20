@@ -29,6 +29,7 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Payment from './Payment';
 
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
@@ -63,7 +64,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
-            <Tab.Screen name="Payment" component={HomeScreen} options={{
+            <Tab.Screen name="Payment" component={Payment} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
                         <Image

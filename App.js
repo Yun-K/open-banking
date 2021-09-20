@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import type { Node } from 'react';
+import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -27,25 +27,29 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import HomeScreen from './src/screens/HomeScreen'
-import Tabs from './src/screens/Tabs'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import Tabs from './src/screens/Tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AddBankScreen from './src/screens/AddBankScreen';
+import MakePayment from './src/screens/MakePayment';
+import Managepayment from './src/screens/Managepayment';
+import AddPayee from './src/screens/AddPayee';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
-
-
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
           component={Tabs}
-          options={{ title: 'Welcome' }}
+          options={{title: 'Welcome'}}
         />
         <Stack.Screen name="AddBankScreen" component={AddBankScreen} />
+        <Stack.Screen name="MakePayment" component={MakePayment} />
+        <Stack.Screen name="ManagePayment" component={Managepayment} />
+        <Stack.Screen name="AddPayee" component={AddPayee} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -77,7 +81,6 @@ const MyStack = () => {
 //     </View>
 //   );
 // };
-
 
 // const App: () => Node = ({ navigation }) => {
 //   const isDarkMode = useColorScheme() === 'dark';
@@ -142,10 +145,96 @@ const MyStack = () => {
 //   },
 // });
 
+// const Section = ({ children, title }): Node => {
+//   const isDarkMode = useColorScheme() === 'dark';
+//   return (
+//     <View style={styles.sectionContainer}>
+//       <Text>Hello world</Text>
+//       <Text
+//         style={[
+//           styles.sectionTitle,
+//           {
+//             color: isDarkMode ? Colors.white : Colors.black,
+//           },
+//         ]}>
+//         {title}
+//       </Text>
+//       <Text
+//         style={[
+//           styles.sectionDescription,
+//           {
+//             color: isDarkMode ? Colors.light : Colors.dark,
+//           },
+//         ]}>
+//         {children}
+//       </Text>
+//     </View>
+//   );
+// };
 
+// const App: () => Node = ({ navigation }) => {
+//   const isDarkMode = useColorScheme() === 'dark';
 
+//   const backgroundStyle = {
+//     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+//   };
+
+//   return (
+//     <SafeAreaView style={backgroundStyle}>
+//       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+//       <ScrollView
+//         contentInsetAdjustmentBehavior="automatic"
+//         style={backgroundStyle}>
+//         <Header />
+//         <View
+//           style={{
+//             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+//           }}>
+//           {/* <Button
+//             title="HomeScreen"
+//             onPress={() =>
+//               navigation.navigate('HomeScreen', { name: 'HomeScreen' })
+//             }
+//           /> */}
+//           <Section title="Step One">
+//             Edit <Text style={styles.highlight}>App.js</Text> to change this
+//             screen and then come back to see your edits.
+//           </Section>
+//           <Section title="See Your Changes">
+//             <ReloadInstructions />
+//           </Section>
+//           <Section title="Debug">
+//             <DebugInstructions />
+//           </Section>
+//           <Section title="Learn More">
+//             Read the docs to discover what to do next:
+//           </Section>
+//           <LearnMoreLinks />
+//         </View>
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   sectionContainer: {
+//     marginTop: 32,
+//     paddingHorizontal: 24,
+//   },
+//   sectionTitle: {
+//     fontSize: 24,
+//     fontWeight: '600',
+//   },
+//   sectionDescription: {
+//     marginTop: 8,
+//     fontSize: 18,
+//     fontWeight: '400',
+//   },
+//   highlight: {
+//     fontWeight: '700',
+//   },
+// });
 
 // export default homeSStack
-
 
 export default MyStack;
