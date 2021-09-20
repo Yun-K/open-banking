@@ -31,28 +31,25 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
-import {FlatList} from 'react-native-gesture-handler';
 const Payees = [
   {Account: 1, Name: 'name01', Reference: ''},
   {Account: 2, Name: 'name02', Reference: ''},
 ];
+
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
+// ManagePayment
 const ManagePayment = ({navigation}) => {
   const [Search, search] = React.useState('Search');
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    console.log(Payees);
     wait(20).then(() => setRefreshing(false));
   }, []);
-
-  const addPayee = (Account, Name, Reference) => {
-    console.log(Payees);
-    return Payees.push({Account, Name, Reference});
-  };
 
   return (
     <SafeAreaView>
@@ -98,12 +95,6 @@ const ManagePayment = ({navigation}) => {
               </View>
             );
           })}
-
-          {/* <TouchableOpacity
-            style={Managestyles.Payees}
-            onPress={() => addPayee('aaa', 'aaa', 'aaa')}>
-            <Text style={Managestyles.TextName}> add payee </Text>
-          </TouchableOpacity> */}
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -173,5 +164,6 @@ const Managestyles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+export {Payees};
 
 export default ManagePayment;

@@ -3,6 +3,7 @@ import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DialogInput from 'react-native-dialog-input';
+import {Payees} from './Managepayment';
 
 import {
   SafeAreaView,
@@ -25,6 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
+import ManagePayment from './Managepayment';
 
 const AddPayee = ({navigation}) => {
   const [Name, name] = React.useState('Person or company');
@@ -32,9 +34,7 @@ const AddPayee = ({navigation}) => {
   const [Particulars, part] = React.useState(null);
 
   const Show = () => {
-    //   put data into here
-    console.log(Name);
-    console.log(Account);
+    Payees.push({Account, Name, Particulars});
     Alert.alert(
       'Confirmation',
       'Are you sure you want to add this ' +
@@ -48,7 +48,12 @@ const AddPayee = ({navigation}) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'Confirm', onPress: () => navigation.navigate('ManagePayment')},
+        {
+          text: 'Confirm',
+          onPress: () => {
+            navigation.navigate('ManagePayment');
+          },
+        },
       ],
     );
   };
