@@ -5,28 +5,21 @@ import Payee from "../Model/Payee.js"
 
 class BankAccountViewModel {
     /**
-     * 
      * Make the payment to the target account, and then return the updated version of my account.
+     * 
+     * HINT: this will return a promise!
+     * 
      * 
      * @param {*} my_id 
      * @param {*} target_id 
      * @param {*} amount amount to pay from my account to target account 
      */
-    static make_payment(my_id, target_id, amount) {
+    static make_payment(my_id, target_id, amount, my_name, target_name) {
 
-        let update_my_account = BankAccount.make_payment(my_id, target_id, amount);
-        // let update_my_account = BankAccount.get_from_firebase(my_id);
+        let updated_account = BankAccount.make_payment(my_id, target_id, amount, my_name, target_name);
 
-        update_my_account.then(function(account) {
-            console.log(account)
-        })
-        return update_my_account
-
-
+        return updated_account //return the updated version of my account 
     }
-
-
-
 
 
 

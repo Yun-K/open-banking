@@ -67,12 +67,12 @@ var s = stack.concat(stack1)
 let my_id = '00-00-00-00';
 let target_id = '00-00-00-01';
 
-let fuck = BankAccountViewModel.make_payment(my_id, target_id, 100);
+let update_my_account = BankAccountViewModel.make_payment(my_id, target_id, 100);
+update_my_account.then((res) => {
+    console.log(res)
+})
 
-// BankAccount.make_payment(my_id, target_id, 100);
 
 
-// let notExistID = 'u0u89h9'
-// let t = BankAccount.get_from_firebase(id)
-
-// console.log(acc)
+// // let notExistID = 'u0u89h9'
+// // let t = BankAccount.get_from_firebase(id)

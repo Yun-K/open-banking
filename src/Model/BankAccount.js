@@ -43,7 +43,7 @@ class BankAccount {
 
     build() {
         if (this.id === null || this.balance === null || this.name === null) {
-            throw errors.ArgumentNull("Can not have any null field")
+            throw "Can not have any null field"
         }
         this.addToFirebase();
     }
@@ -85,33 +85,12 @@ class BankAccount {
     }
 
 
-
-    /**TODO:debug
-     * 
-     * Be invoked whenever balance is changed.
-     * 
-     * This will update new logs and balance changed.
-     */
-    async update_to_firebase() {
-        const accountRef = await Fire.shared.db.collection('BankAccount').doc(this.id);
-        let res = await accountRef.update({
-            balance: this.balance,
-            //add more fields here:
-            logs: this.logs,
-
-            //the update time stamp
-            update: Fire.shared.FieldValue.serverTimestamp()
-        });
-        return BankAccount.get_from_firebase(this.id)
-    }
-
-
     /**
      * 
      * @param {*} target_id the unique target account id 
      * @param {*} amountToPay amount of money you want to pay to the target
      */
-    static async make_payment(my_id, target_id, amountToPay) {
+    static async make_payment(my_id, target_id, amountToPay, my_name, target_name) {
         if (amountToPay <= 0) {
             throw new Error('The money must be positive !');
         }
@@ -133,7 +112,8 @@ class BankAccount {
             let current_log = {
                 date: new Date(),
                 balance: amountToPay * -1, //record 
-                target: target_id
+                target: target_id,
+                name: target_name
             }
 
             //concat old and new  logs together 
@@ -158,7 +138,9 @@ class BankAccount {
             let target_log = {
                 date: new Date(),
                 balance: Math.abs(amountToPay),
-                target: my_id
+                target: my_id,
+                name: my_name
+
             }
 
             //concat old and new  logs together 
@@ -173,12 +155,28 @@ class BankAccount {
 
 
         return updated_my_account;
-        // return BankAccount.get_from_firebase(my_id)
-
-
 
     }
 
+
+    /**
+     * 
+     * Be invoked whenever balance is changed.
+     * 
+     * This will update new logs and balance changed.
+     */
+    async update_to_firebase() {
+        const accountRef = await Fire.shared.db.collection('BankAccount').doc(this.id);
+        let res = await accountRef.update({
+            balance: this.balance,
+            logs: this.logs,
+            //add more fields here:
+
+            //the update time stamp
+            update: Fire.shared.FieldValue.serverTimestamp()
+        });
+        return BankAccount.get_from_firebase(this.id)
+    }
 
     //=============================================================
     // Static method for getting the instance from the firebase
@@ -202,6 +200,8 @@ class BankAccount {
                     name: account.name,
                     balance: account.balance,
                     //add more fields here:
+                    regdate: account.regdate,
+                    update: account.update
 
                 };
             },
@@ -212,8 +212,8 @@ class BankAccount {
                 bankAccount.set_name(data.name)
                 bankAccount.set_balance(data.balance)
                 bankAccount.set_logs(data.logs)
-
-                // return new BankAccount(data.id, data.balance, data.accountName);
+                bankAccount.regdate = data.regdate
+                bankAccount.update = data.update
 
                 return bankAccount;
             }
