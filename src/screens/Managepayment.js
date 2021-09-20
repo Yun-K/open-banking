@@ -19,6 +19,8 @@ import {
   Button,
   TextInput,
   Alert,
+  Model,
+  RefreshControl,
 } from 'react-native';
 
 import {
@@ -29,20 +31,28 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
-
+import {FlatList} from 'react-native-gesture-handler';
+const Payees = [
+  {Account: 1, Name: 'name01', Reference: ''},
+  {Account: 2, Name: 'name02', Reference: ''},
+];
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 const ManagePayment = ({navigation}) => {
   const [Search, search] = React.useState('Search');
-  const [isDialogVisible, setDialogVisible] = React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
 
-  const NewPayee = props => {
-    return (
-      <View>
-        <TouchableOpacity style={Managestyles.Payees}>
-          <Text style={Managestyles.TextName}> {props.name} </Text>
-        </TouchableOpacity>
-      </View>
-    );
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(20).then(() => setRefreshing(false));
+  }, []);
+
+  const addPayee = (Account, Name, Reference) => {
+    console.log(Payees);
+    return Payees.push({Account, Name, Reference});
   };
+
   return (
     <SafeAreaView>
       {/* for the Search  */}
@@ -69,11 +79,30 @@ const ManagePayment = ({navigation}) => {
       </View>
       {/* For the Mange payees */}
       <View style={Managestyles.View}>
-        <ScrollView style={Managestyles.ScrollView}>
+        <ScrollView
+          style={Managestyles.ScrollView}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           <Text style={Managestyles.Text}>YOUR SAVED PAYEES</Text>
           {/* Payees (Kevin and Alvin)  */}
-          <NewPayee name="Kevin" />
-          <NewPayee name="Alvin" />
+          {/* <NewPayee name="Kevin" />
+          <NewPayee name="Alvin" /> */}
+          {Payees.map(payee => {
+            return (
+              <View key={payee.Name}>
+                <TouchableOpacity style={Managestyles.Payees}>
+                  <Text style={Managestyles.TextName}> {payee.Name} </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+
+          {/* <TouchableOpacity
+            style={Managestyles.Payees}
+            onPress={() => addPayee('aaa', 'aaa', 'aaa')}>
+            <Text style={Managestyles.TextName}> add payee </Text>
+          </TouchableOpacity> */}
         </ScrollView>
       </View>
     </SafeAreaView>
