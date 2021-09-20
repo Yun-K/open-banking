@@ -31,7 +31,7 @@ const HStack = createNativeStackNavigator();
 //     );
 // };
 
-const BankCards = [
+const BankAccounts = [
   {
     Image: require('../screens/HomeScreenImage/ANZ.jpg'),
     Name: 'ANZ',
@@ -54,9 +54,9 @@ const BankCards = [
 
 const HomeScreen = ({navigation}) => {
   // this for the add Bank Card (not used yet)
-  const addBankCard = (Image, Name, Account, Account1) => {
-    console.log(BankCards);
-    return BankCards.push({Image, Name, Account, Account1});
+  const addBankAccounts = (Image, Name, Account, Account1) => {
+    console.log(BankAccounts);
+    return BankAccounts.push({Image, Name, Account, Account1});
   };
 
   return (
@@ -75,21 +75,21 @@ const HomeScreen = ({navigation}) => {
           </Text>
           <View style={{height: 130, marginTop: 20}}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
-              {BankCards.map(Card => {
+              {BankAccounts.map(Acc => {
                 return (
-                  <View style={styles.CardsView} key={Card.Name}>
+                  <View style={styles.AccountView} key={Acc.Name}>
                     <View style={styles.ImageView}>
-                      <Image source={Card.Image} style={styles.Imagestyles} />
+                      <Image source={Acc.Image} style={styles.Imagestyles} />
                     </View>
                     <View style={styles.Text}>
-                      <Text>{Card.Account}</Text>
-                      <Text>{Card.Account1}</Text>
+                      <Text>{Acc.Account}</Text>
+                      <Text>{Acc.Account1}</Text>
                     </View>
                   </View>
                 );
               })}
 
-              <View style={styles.CardsView}>
+              <View style={styles.AccountView}>
                 <View style={styles.ImageView}>
                   <Image
                     source={require('../screens/HomeScreenImage/plus.jpg')}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  CardsView: {
+  AccountView: {
     height: 130,
     width: 130,
     marginLeft: 20,
