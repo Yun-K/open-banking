@@ -7,7 +7,7 @@ class BankAccountViewModel {
     /**
      * Make the payment to the target account, and then return the updated version of my account.
      * 
-     * HINT: this will return a promise!
+     * HINT: this will return a promise!!!!!!!
      * 
      * 
      * @param {*} my_id 

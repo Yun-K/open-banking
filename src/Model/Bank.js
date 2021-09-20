@@ -7,7 +7,7 @@ import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import BankViewModel from '../ViewModel/BankViewModel.js';
 import PayeeViewModel from '../ViewModel/PayeeViewModel.js';
 
-// Fire = require('Fire')
+
 class Bank {
 
     constructor() {
