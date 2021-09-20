@@ -14,6 +14,7 @@ import {
   View,
   Button,
   TextInput,
+  Alert,
 } from 'react-native';
 
 import {
@@ -34,6 +35,22 @@ const AddPayee = ({navigation}) => {
     //   put data into here
     console.log(Name);
     console.log(Account);
+    Alert.alert(
+      'Confirmation',
+      'Are you sure you want to add this ' +
+        Name +
+        '?\n' +
+        '\nAccount No. : ' +
+        Account,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Confirm', onPress: () => navigation.navigate('ManagePayment')},
+      ],
+    );
   };
 
   return (

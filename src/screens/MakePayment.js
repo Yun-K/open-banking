@@ -16,6 +16,7 @@ import {
   TouchableOpacity,
   Button,
   TextInput,
+  Alert,
 } from 'react-native';
 
 import {
@@ -31,6 +32,17 @@ const MakePayment = ({navigation}) => {
   const [Amountnumber, onChangeAmount] = React.useState('Enter Amount');
   const [TheirRef, thRef] = React.useState('Enter reference');
   const [YourRef, yoRef] = React.useState('Enter reference');
+
+  const Show = () => {
+    Alert.alert('Confirmation', 'Are you sure you want to pay this account?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'Confirm', onPress: () => navigation.navigate('Payment')},
+    ]);
+  };
 
   return (
     <SafeAreaView style={Scrollstyles.container}>
@@ -129,6 +141,9 @@ const MakePayment = ({navigation}) => {
             onChangeText={yoRef}
             value={YourRef}
           />
+        </View>
+        <View style={{marginTop: 20, marginBottom: 20}}>
+          <Button title="Pay" onPress={Show} />
         </View>
       </ScrollView>
     </SafeAreaView>
