@@ -66,7 +66,10 @@ var s = stack.concat(stack1)
 
 let my_id = '00-00-00-00';
 let target_id = '00-00-00-01';
-BankAccount.make_payment(my_id, target_id, 100);
+
+let fuck = BankAccountViewModel.make_payment(my_id, target_id, 100);
+
+// BankAccount.make_payment(my_id, target_id, 100);
 
 
 // let notExistID = 'u0u89h9'

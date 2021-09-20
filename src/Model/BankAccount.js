@@ -3,7 +3,7 @@ import Fire from './Fire.js';
 import Payee from './Payee.js';
 import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import BankViewModel from '../ViewModel/BankViewModel.js';
-import PayeeViewModel from '../ViewModel/PayeeViewModel.js'
+import PayeeViewModel from '../ViewModel/PayeeViewModel.js';
 
 class BankAccount {
 
@@ -94,7 +94,7 @@ class BankAccount {
      */
     async update_to_firebase() {
         const accountRef = await Fire.shared.db.collection('BankAccount').doc(this.id);
-        let res = accountRef.update({
+        let res = await accountRef.update({
             balance: this.balance,
             //add more fields here:
             logs: this.logs,
@@ -102,15 +102,16 @@ class BankAccount {
             //the update time stamp
             update: Fire.shared.FieldValue.serverTimestamp()
         });
-
+        return BankAccount.get_from_firebase(this.id)
     }
+
 
     /**
      * 
      * @param {*} target_id the unique target account id 
      * @param {*} amountToPay amount of money you want to pay to the target
      */
-    static make_payment(my_id, target_id, amountToPay) {
+    static async make_payment(my_id, target_id, amountToPay) {
         if (amountToPay <= 0) {
             throw new Error('The money must be positive !');
         }
@@ -118,13 +119,14 @@ class BankAccount {
         //get the promise
         let my_account = BankAccount.get_from_firebase(my_id);
         //update my account inside the promise
-        my_account.then(function(account) {
+        let updated_my_account = await my_account.then(async function(account) {
             if (account === null) {
                 throw new Error('My id does not exist!');
             }
             if (account.amount < amountToPay) {
                 throw new Error('You dont have enough money to pay!');
             }
+
 
             account.balance -= amountToPay;
 
@@ -139,7 +141,8 @@ class BankAccount {
             let concatLogs = old.concat(current_log);
 
             account.logs = concatLogs
-            account.update_to_firebase()
+            return await account.update_to_firebase()
+
 
         })
 
@@ -162,10 +165,16 @@ class BankAccount {
             let old = account.logs
             let concatLogs = old.concat(target_log);
             account.logs = concatLogs;
-            account.update_to_firebase()
+
+            return account.update_to_firebase()
         })
 
-        return BankAccount.get_from_firebase(my_id)
+        // setTimeout(() => {}, 5000);
+
+
+        return updated_my_account;
+        // return BankAccount.get_from_firebase(my_id)
+
 
 
     }
