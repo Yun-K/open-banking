@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "66763043886",
+    "project_id": "open-banking-76572",
+    "storage_bucket": "open-banking-76572.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66763043886:android:42ec7cdfea884468abdbbf",
+        "android_client_info": {
+          "package_name": "com.openbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66763043886-mhjma7aeupf8plg9f9k7ctj7o7sismvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGcBGVSoY5gFpJoBWh47wzlJRTsvnbPFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66763043886-mhjma7aeupf8plg9f9k7ctj7o7sismvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
