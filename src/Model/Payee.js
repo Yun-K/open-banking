@@ -5,7 +5,7 @@ import Fire from './Fire.js';
 import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import BankViewModel from '../ViewModel/BankViewModel.js';
 import PayeeViewModel from '../ViewModel/PayeeViewModel.js';
-import BankAccount from './BankAccount.js';
+
 
 class Payee {
 
@@ -15,12 +15,12 @@ class Payee {
     }
 
     build() {
-        if (this.accountID || this.id === null) {
+        if (this.accountID === null || this.id === null) {
             throw errors.ArgumentNull("Can not have any null field")
         }
         BankAccount.get_from_firebase(this.accountID).then((result) => {
             if (result === null) {
-                throw 'Payee account id is not exist in our firebase database';
+                throw 'Payee account id you enter does not exist in our firebase database';
             }
 
             //it is exist , so add to firebase
@@ -130,10 +130,7 @@ class Payee {
 
     static async make_payment(my_id, target_id, amountToPay, my_name, target_name) {
         return await BankAccount.make_payment(my_id, target_id, amountToPay, my_name, target_name)
-
     }
-
-
 
 
 

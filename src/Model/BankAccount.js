@@ -1,6 +1,7 @@
 import Bank from './Bank.js';
 import Fire from './Fire.js';
 import Payee from './Payee.js';
+
 import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import BankViewModel from '../ViewModel/BankViewModel.js';
 import PayeeViewModel from '../ViewModel/PayeeViewModel.js';

@@ -1,8 +1,8 @@
-import Fire from './Fire.js';
-import BankAccount from './BankAccount.js';
 // import Bank from './Bank.js';
 import Fire from './Fire.js';
+import BankAccount from './BankAccount.js';
 import Payee from './Payee.js';
+
 import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import BankViewModel from '../ViewModel/BankViewModel.js';
 import PayeeViewModel from '../ViewModel/PayeeViewModel.js';
@@ -20,7 +20,7 @@ class Bank {
         this.bankName = bankName;
     }
 
-    set_bankID(bankID) {
+    set_bankID(id) {
         this.id = id;
     }
 
@@ -42,20 +42,19 @@ class Bank {
             throw errors.ArgumentNull("id, password and bankName can not be null!")
         }
         //set  up the account id
-        saving_id = this.id + '-00';
-        streamLine_id = this.id + '01';
-
+        this.saving_id = this.id + '-00';
+        this.streamLine_id = this.id + '-01';
         // default we have 2 accounts
-        this.saving = new BankAccount()
+        this.saving = new BankAccount();
         this.saving.set_logs([])
-        this.saving.set_id(saving_id)
+        this.saving.set_id(this.saving_id)
         this.saving.set_name('saving')
         this.saving.set_balance(5000)
         this.saving.build()
 
         this.streamLine = new BankAccount()
         this.streamLine.set_logs([])
-        this.streamLine.set_id(streamLine_id)
+        this.streamLine.set_id(this.streamLine_id)
         this.streamLine.set_name('streamLine')
         this.streamLine.set_balance(5000)
         this.streamLine.build()
@@ -74,30 +73,26 @@ class Bank {
      * 
      */
     addToFirebase() {
-        let upload = {
-            bankName: this.bankName,
-            id: this.id,
-            userName: this.userName,
-            password: this.password,
-            saving: this.saving, //saving account
-            streamLine: this.streamLine, //streamLine account
-
-            //add more fields here:
-
-            //
-            //the register date of this entry
-            regdate: Fire.shared.FieldValue.serverTimestamp()
-        }
-
         Fire.shared.db
             .collection('Bank')
             .doc(this.id) //set the document id to be the account id 
-            .set(upload)
+            .set({
+                bankName: this.bankName,
+                id: this.id,
+                userName: this.userName,
+                password: this.password,
+                saving_id: this.saving_id, //saving account
+                streamLine_id: this.streamLine_id, //streamLine account
+
+                //add more fields here:
+
+                //
+                //the register date of this entry
+                regdate: Fire.shared.FieldValue.serverTimestamp()
+            })
             .then(() => {
                 console.log('Bank added!  id:', this.id);
             });
-
-
     }
 
     /**
@@ -124,8 +119,8 @@ class Bank {
             id: this.id,
             userName: this.userName,
             password: this.password,
-            saving: this.saving, //saving account
-            streamLine: this.streamLine, //streamLine account
+            saving_id: this.saving_id, //saving account
+            streamLine_id: this.streamLine_id, //streamLine account
             //add more fields here:
 
             //
@@ -136,10 +131,10 @@ class Bank {
 
     /**
      * TODO: not successfully 
-     * @param {*} id 
+     * @param {*} id_in 
      * @returns 
      */
-    static async get_from_firebase(id) {
+    static async get_from_firebase(id_in) {
         // Firestore data converter
         var converter = {
             toFirestore: function(bank_obj) {
@@ -148,8 +143,8 @@ class Bank {
                     id: bank_obj.id,
                     userName: bank_obj.userName,
                     password: bank_obj.password,
-                    saving: bank_obj.saving, //saving account
-                    streamLine: bank_obj.streamLine, //streamLine account
+                    saving_id: bank_obj.saving_id, //saving account
+                    streamLine_id: bank_obj.streamLine_id, //streamLine account
 
                     //add more fields here:
                     regdate: bank_obj.regdate,
@@ -165,8 +160,8 @@ class Bank {
                 bank.set_bankID(data.id)
                 bank.set_password(data.password)
 
-                bank.saving = data.saving
-                bank.streamLine = data.streamLine
+                bank.saving_id = data.saving_id
+                bank.streamLine_id = data.streamLine_id
 
                 bank.regdate = data.regdate
                 bank.update = data.update
@@ -175,7 +170,7 @@ class Bank {
             }
         };
         let output =
-            await Fire.shared.db.collection('Bank').doc(id)
+            await Fire.shared.db.collection('Bank').doc(id_in)
             .withConverter(converter)
             .get().then((doc) => {
                 if (doc.exists) {
@@ -199,10 +194,3 @@ class Bank {
 }
 
 export default Bank
-
-// const bank = new Bank()
-//     .set_bankID(id)
-//     .set_bankName(bankName)
-//     .set_userName(userName)
-//     .set_password(password)
-//     .build();

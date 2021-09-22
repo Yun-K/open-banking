@@ -1,3 +1,7 @@
+# package and package-lock.json
+package.json
+package-lock.json
+
 # OSX
 #
 .DS_Store

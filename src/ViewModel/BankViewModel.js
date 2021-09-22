@@ -44,12 +44,9 @@ class BankViewModel {
                 if (password === bank.password) {
                     return bank;
                 }
-                throw 'Password incorrect!'
+                return null; // 'Password incorrect!'
             }
         });
-
-
-        // return bank;
 
 
     }
@@ -59,17 +56,37 @@ class BankViewModel {
      * @param {*} bankID 
      * @returns 
      */
-    async getBank(bankID) {
+    static async getBank(bankID) {
         return await Bank.getBank(bankID);
     }
+
+    //=================================================================
+    //better to use BankAccountViewModel.getAccount(id)
+    //=================================================================
+
+    /**
+     * Pass in the BankID, return the saving account from firebase
+     * @param {*} bankID 
+     * @returns 
+     */
+    static async getSavingAccount(bankID) {
+        let savingID = bankID + '-00'
+        return await BankAccount.get_from_firebase(savingID)
+    }
+
+
+    static async getStreamLineAccount(bankID) {
+        let streamLine_id = bankID + '-01'
+        return await BankAccount.get_from_firebase(streamLine_id)
+    }
+
+
 
     // /**
     //  * 
     //  * @param {*} bankID 
     //  */
     // deleteBank(bankID) {
-
-
     // }
 
 
