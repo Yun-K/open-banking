@@ -37,7 +37,7 @@ class Bank {
      * Also, create the associated 2 bank account instances, and push them  into firebase.
      * The associated account id default set as the Bank id+'-00' for saving and  '01' for streamLine
      */
-    build() {
+    async build() {
         if (this.password === null || this.id === null || this.bankName === null) {
             throw errors.ArgumentNull("id, password and bankName can not be null!")
         }

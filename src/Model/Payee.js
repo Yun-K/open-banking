@@ -14,7 +14,7 @@ class Payee {
         this.accountID = accountID;
     }
 
-    build() {
+    async build() {
         if (this.accountID === null || this.id === null) {
             throw errors.ArgumentNull("Can not have any null field")
         }

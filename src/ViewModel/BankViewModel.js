@@ -9,9 +9,6 @@ import Payee from "../Model/Payee.js"
 
 class BankViewModel {
 
-
-
-
     /**
      * To be able to add a Bank, we need to first check whether the password is valid, in which query and check if there is an matched instance in our database.
      * 
@@ -38,7 +35,7 @@ class BankViewModel {
                 bankToAdd.set_bankID(bankID)
                 bankToAdd.set_userName(userName)
                 bankToAdd.set_password(password)
-                bankToAdd.build(); //build the associated 2 bank accounts and push to firebase
+                await bankToAdd.build(); //build the associated 2 bank accounts and push to firebase
                 return await bankToAdd.update_to_firebase()
 
             } else {

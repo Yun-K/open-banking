@@ -20,7 +20,7 @@ class PayeeViewModel {
             if (payee === null) {
                 // add the payee into firebase
                 let payee_to_add = new Payee(payee_name, payee_accountID);
-                let status = payee_to_add.build()
+                let status = await payee_to_add.build()
                 if (status === null) {
                     //return null means the payee id does not exist iin our firebase databse
                     return null
