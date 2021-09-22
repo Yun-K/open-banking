@@ -54,17 +54,14 @@ class BankViewModel {
 
     }
 
-    // /**
-    //  * Pass the Bank id to get the bank instance from firebase
-    //  * @param {*} bankID 
-    //  * @returns 
-    //  */
-    // getBank(bankID) {
-    //     //TODO: the api is not implemented successfuly
-    //     const bank = Bank.getBank(bankID)
-    //     return bank;
-
-    // }
+    /**
+     * Pass the Bank id to get the bank instance from firebase
+     * @param {*} bankID 
+     * @returns 
+     */
+    async getBank(bankID) {
+        return await Bank.getBank(bankID);
+    }
 
     // /**
     //  * 
