@@ -13,6 +13,7 @@ import {
   View,
   Image,
   Button,
+  RefreshControl,
 } from 'react-native';
 
 import {
@@ -25,11 +26,6 @@ import {
 import {Card} from 'react-native-paper';
 
 const HStack = createNativeStackNavigator();
-// function homeSStack() {
-//     return (
-
-//     );
-// };
 
 const BankAccounts = [
   {
@@ -53,15 +49,24 @@ const BankAccounts = [
 ];
 
 const HomeScreen = ({navigation}) => {
-  // this for the add Bank Card (not used yet)
-  const addBankAccounts = (Image, Name, Account, Account1) => {
-    console.log(BankAccounts);
-    return BankAccounts.push({Image, Name, Account, Account1});
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
   };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    console.log(BankAccounts);
+    wait(20).then(() => setRefreshing(false));
+  }, []);
 
   return (
     <View>
-      <ScrollView scrollEventThrottle={16}>
+      <ScrollView
+        scrollEventThrottle={16}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View
           style={{
             flex: 1,
@@ -142,4 +147,5 @@ const styles = StyleSheet.create({
   },
 });
 
+export {BankAccounts};
 export default HomeScreen;

@@ -29,12 +29,11 @@ import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativ
 import ManagePayment from './Managepayment';
 
 const AddPayee = ({navigation}) => {
-  const [Name, name] = React.useState('Person or company');
-  const [Account, account] = React.useState('Bank - Branch -Account - Suffix');
+  const [Name, name] = React.useState(null);
+  const [Account, account] = React.useState(null);
   const [Particulars, part] = React.useState(null);
 
   const Show = () => {
-    Payees.push({Account, Name, Particulars});
     Alert.alert(
       'Confirmation',
       'Are you sure you want to add this ' +
@@ -52,6 +51,7 @@ const AddPayee = ({navigation}) => {
           text: 'Confirm',
           onPress: () => {
             navigation.navigate('ManagePayment');
+            Payees.push({Account, Name, Particulars});
           },
         },
       ],
@@ -67,6 +67,7 @@ const AddPayee = ({navigation}) => {
           style={Managestyles.input}
           onChangeText={name}
           value={Name}
+          placeholder="Person or company"
         />
       </View>
       <View style={Managestyles.View}>
@@ -82,6 +83,7 @@ const AddPayee = ({navigation}) => {
           }}
           onChangeText={account}
           value={Account}
+          placeholder="Bank - Branch -Account - Suffix"
         />
       </View>
       <Text>ON THEIR STATEMENT</Text>
