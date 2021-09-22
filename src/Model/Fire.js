@@ -4,11 +4,18 @@
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 // import firebase from "firebase/compat/app"
-import firestore from 'firebase/firestore';
-
+// import firestore from 'firebase/firestore';
 // import '@firebase/firestore/dist/esm/index';
+
+// //v9 compat packages are API compatible with v8 code
+import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+// import { getDoc } from 'firebase/firestore'
+
 
 
 class Fire {
@@ -29,7 +36,7 @@ class Fire {
     //         measurementId: "G-7X34YFBKH1"
     //     };
     //     //firebase stuff
-    // const admin = require('firebase-admin');
+    //     const admin = require('firebase-admin');
 
 
     //     //read the private key to get the  authentation
@@ -53,10 +60,10 @@ class Fire {
 
     init = () => {
 
-        var firebase = require("firebase")
-            // Required for side-effects
-        require("firebase/firestore");
+        // const firebase = require("firebase")
 
+        // // Required for side-effects
+        // require("firebase/firestore");
 
         const firebaseConfig = {
             apiKey: "AIzaSyDnu8sS8JjCTcJ8mgpn--eVhuQmJXRJXYY",
@@ -66,25 +73,16 @@ class Fire {
             messagingSenderId: "66763043886",
             appId: "1:66763043886:web:5fbbbb442dce0fb6abdbbf",
             measurementId: "G-7X34YFBKH1"
-        };
+        }
+
         const defaultFirebaseApp = firebase.initializeApp(firebaseConfig);
-        // the instance of Firestore for the default app
-        this.db = defaultFirebaseApp.firestore();
-        // const dbDefault = firebase.firestore(dbApp);
+        this.db = firebase.firestore()
+        this.FieldValue = firebase.firestore.FieldValue;
 
 
-
-        // const firebaseapp = initializeApp(firebaseConfig)
-        // this.db = getFirestore();
-        // this.db = firestore.;
-        // this.FieldValue = firebase.firestore.FieldValue
+        // this.db = getFirestore(defaultFirebaseApp);
 
 
-
-
-        // this.db = firebase.firestore();
-        // //set our db
-        // this.db = admin.firestore();
 
 
         // the timestamp of firebase Server, so we can use this to do CRUD operation

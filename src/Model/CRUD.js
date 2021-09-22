@@ -5,11 +5,11 @@ import Payee from './Payee.js';
 import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import BankViewModel from '../ViewModel/BankViewModel.js';
 import PayeeViewModel from '../ViewModel/PayeeViewModel.js'
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 
-import firebase from 'firebase/app';
-import * as firestore from 'firebase/firestore';
+// import firebase from 'firebase/app';
+// import * as firestore from 'firebase/firestore';
 
 // function addLog(logList) {
 //     for (var i = 0; i <= 1; i++) {
@@ -74,7 +74,7 @@ import * as firestore from 'firebase/firestore';
 // })
 
 
-// console.log(Fire.shared.db)
+// // console.log(Fire.shared.db)
 // async function fuck() {
 
 //     const draft = collection(Fire.shared.db, 'draft');
@@ -82,19 +82,19 @@ import * as firestore from 'firebase/firestore';
 //     const cityList = citySnapshot.docs.map(doc => doc.data());
 //     console.log(cityList)
 // }
-// fuck()
+// // fuck()
 
 
-Fire.shared.db.collection('draft')
-    .get()
-    .then(snapshot => {
-        snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
-        });
-    })
-    .catch(err => {
-        console.log('error when getting the documents', err);
-    });
+// Fire.shared.db.collection('draft')
+//     .get()
+//     .then(snapshot => {
+//         snapshot.forEach(doc => {
+//             console.log(doc.id, '=>', doc.data());
+//         });
+//     })
+//     .catch(err => {
+//         console.log('error when getting the documents', err);
+//     });
 
 
 
@@ -102,11 +102,11 @@ Fire.shared.db.collection('draft')
 //===============================================
 // for bank debug
 //===============================================
-// let addBank = BankViewModel.addBank('ANZ', '102290-11-11', 'Yun', '12345')
+let addBank = BankViewModel.addBank('ANZ', '102290-11-11', 'Yun', '12345')
 
-// addBank.then((result) => {
-//     console.log(result)
-// })
+addBank.then((result) => {
+    console.log(result)
+})
 
 
 
@@ -118,7 +118,7 @@ Fire.shared.db.collection('draft')
 // for payee debug
 //===============================================
 
-// let addedPayee  = PayeeViewModel.addPayee('Yun','00-00-00-00')
-// addedPayee.then((payee)=>{
-// 	console.log(payee)
-// })
+let addedPayee = PayeeViewModel.addPayee('Yun', '11-11-11-01')
+addedPayee.then((payee) => {
+    console.log(payee)
+})
