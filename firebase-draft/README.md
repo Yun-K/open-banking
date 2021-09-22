@@ -19,6 +19,7 @@ $ firebase login --no-localhost
 $ firebase projects:list
 # exit and reopen the terminal,then run the following
 $ npm install 
+$ npm install firebase-admin --save
 $ firebase-admin --save
 
 # run  node firebase-draft/draft.js

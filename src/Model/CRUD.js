@@ -60,10 +60,10 @@ var s = stack.concat(stack1)
 // temp.build();
 
 
-// let my_id = '00-00-00-00';
-// let target_id = '00-00-00-01';
+// let my_id = '11-11-11-00';
+// let target_id = '11-11-11-01';
 
-// let update_my_account = BankAccountViewModel.make_payment(my_id, target_id, 100);
+// let update_my_account = BankAccountViewModel.make_payment(my_id, target_id, 100, null, null);
 // update_my_account.then((res) => {
 //     console.log(res)
 // })
@@ -74,19 +74,14 @@ var s = stack.concat(stack1)
 //===============================================
 // for bank debug
 //===============================================
-let addBank = BankViewModel.addBank('ANZ', '11-11-11', 'Yun', '12345')
+let addBank = BankViewModel.addBank('ANZ', '1022-11-11', 'Yun', '12345')
 
 addBank.then((result) => {
     console.log(result)
 })
 
-// BankViewModel.getBank('11-11-11').then((result) => { console.log(result) })
-
-
-
-
-// // let notExistID = 'u0u89h9'
-// // let t = BankAccount.get_from_firebase(id)
+// let notExistID = 'u0u89h9'
+// let t = BankAccount.get_from_firebase(id)
 
 
 //===============================================
@@ -96,5 +91,4 @@ addBank.then((result) => {
 // let addedPayee  = PayeeViewModel.addPayee('Yun','00-00-00-00')
 // addedPayee.then((payee)=>{
 // 	console.log(payee)
-
 // })

@@ -60,7 +60,7 @@ class Bank {
         this.streamLine.build()
 
 
-        this.addToFirebase();
+        await this.addToFirebase();
     }
 
 
@@ -126,7 +126,7 @@ class Bank {
             //
             update: Fire.shared.FieldValue.serverTimestamp()
         });
-        return Bank.get_from_firebase(this.id);
+        return await Bank.get_from_firebase(this.id);
     }
 
     /**

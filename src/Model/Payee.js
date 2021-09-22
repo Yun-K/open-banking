@@ -18,16 +18,16 @@ class Payee {
         if (this.accountID === null || this.id === null) {
             throw errors.ArgumentNull("Can not have any null field")
         }
-        BankAccount.get_from_firebase(this.accountID).then((result) => {
+        return BankAccount.get_from_firebase(this.accountID).then(async(result) => {
             if (result === null) {
                 return null; //throw 'Payee account id you enter does not exist in our firebase database';
             }
 
             //it is exist , so add to firebase
-            this.addToFirebase();
+            await this.addToFirebase();
 
+            return 1
         })
-        return 1;
     }
 
     addToFirebase() {
@@ -69,7 +69,7 @@ class Payee {
             //the update time stamp
             update: Fire.shared.FieldValue.serverTimestamp()
         });
-        return Payee.get_from_firebase(this.id)
+        return await Payee.get_from_firebase(this.id)
     }
 
     //=============================================================
