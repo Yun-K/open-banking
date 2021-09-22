@@ -20,13 +20,14 @@ class Payee {
         }
         BankAccount.get_from_firebase(this.accountID).then((result) => {
             if (result === null) {
-                throw 'Payee account id you enter does not exist in our firebase database';
+                return null; //throw 'Payee account id you enter does not exist in our firebase database';
             }
 
             //it is exist , so add to firebase
             this.addToFirebase();
 
         })
+        return 1;
     }
 
     addToFirebase() {
@@ -133,6 +134,9 @@ class Payee {
     }
 
 
+    static async get_payee_account(accountID) {
+        return await BankAccount.get_from_firebase(accountID)
+    }
 
 }
 export default Payee

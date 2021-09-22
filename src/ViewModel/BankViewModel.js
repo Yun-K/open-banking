@@ -22,6 +22,8 @@ class BankViewModel {
      * @param {*} bankID 
      * @param {*} userName 
      * @param {*} password 
+     * @returns null if password is incorrect, 
+     *          otherwise return Bank object from firebase
      */
     static async addBank(bankName, bankID, userName, password) {
 
@@ -54,10 +56,10 @@ class BankViewModel {
     /**
      * Pass the Bank id to get the bank instance from firebase
      * @param {*} bankID 
-     * @returns 
+     * @returns Bank obj from firebase
      */
     static async getBank(bankID) {
-        return await Bank.getBank(bankID);
+        return await Bank.get_from_firebase(bankID)
     }
 
     //=================================================================

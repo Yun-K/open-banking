@@ -32,6 +32,11 @@ class BankAccountViewModel {
 
     }
 
+    /**
+     * 
+     * @param {*} id the account id 
+     * @returns 
+     */
     static async getAccount(id) {
         return await BankAccount.get_from_firebase(id);
     }
