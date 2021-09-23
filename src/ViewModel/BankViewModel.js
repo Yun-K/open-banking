@@ -53,10 +53,23 @@ class BankViewModel {
     /**
      * Pass the Bank id to get the bank instance from firebase
      * @param {*} bankID 
-     * @returns Bank obj from firebase
+     * @returns Bank obj from firebase and fields can be assessed via map/dict 
      */
     static async getBank(bankID) {
         return await Bank.get_from_firebase(bankID)
+    }
+
+    /**
+     * Pass a list of Bank ids to get bank instances from firebase
+     * @param {*} bankID_list 
+     * @returns Bank obj from firebase and fields can be assessed via map/dict
+     */
+    static async getBanks(bankID_list) {
+        let list = [];
+        for (var i = 0; i < bankID_list.length; i++) {
+            list.push(await BankViewModel.getBank(bankID_list[i]))
+        }
+        return list;
     }
 
     //=================================================================
