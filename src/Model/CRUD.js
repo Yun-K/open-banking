@@ -1,5 +1,5 @@
 /**
- * Useless js, it is only used by node to debug to see whether the api can connect to the firebase.
+ * Useless js, it is only used to debug to see the CLI output, and to check whether the api can connect to the firebase.
  */
 
 
