@@ -2,6 +2,7 @@ import React from 'react';
 import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ManagePayment from './Managepayment';
 
 import {
   SafeAreaView,
@@ -98,7 +99,8 @@ const MakePayment = ({navigation}) => {
               borderColor: '#707070',
               height: 45,
               borderRadius: 10,
-            }}>
+            }}
+            onPress={() => navigation.navigate('ManagePayment')}>
             <Text style={Scrollstyles.text}>Choice Payee here +</Text>
           </TouchableOpacity>
           <Text

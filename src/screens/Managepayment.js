@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DialogInput from 'react-native-dialog-input';
 import AddPayee from './AddPayee';
+import MakePayment from './MakePayment';
 
 import {
   SafeAreaView,
@@ -51,6 +52,38 @@ const ManagePayment = ({navigation}) => {
     wait(20).then(() => setRefreshing(false));
   }, []);
 
+  const Show = (Name, Account) => {
+    Alert.alert(
+      'Confirmation',
+      'Are you sure you want to Choice' +
+        Name +
+        '?\n' +
+        '\nAccount No. : ' +
+        Account,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => {
+            navigation.navigate('MakePayment');
+            // Payees.push({Account, Name, Particulars});
+          },
+        },
+        {
+          text: 'Delete',
+          onPress: () => {
+            // console.log(Payees.includes(Name) + 'Deleted');
+            Payees.filter(Payee => Payee.Name !== Name);
+          },
+        },
+      ],
+    );
+  };
+
   return (
     <SafeAreaView>
       {/* for the Search  */}
@@ -89,7 +122,9 @@ const ManagePayment = ({navigation}) => {
           {Payees.map(payee => {
             return (
               <View key={payee.Name}>
-                <TouchableOpacity style={Managestyles.Payees}>
+                <TouchableOpacity
+                  style={Managestyles.Payees}
+                  onPress={() => Show(payee.Name, payee.Account)}>
                   <Text style={Managestyles.TextName}> {payee.Name} </Text>
                 </TouchableOpacity>
               </View>

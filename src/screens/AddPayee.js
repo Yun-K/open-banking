@@ -51,7 +51,11 @@ const AddPayee = ({navigation}) => {
           text: 'Confirm',
           onPress: () => {
             navigation.navigate('ManagePayment');
-            Payees.push({Account, Name, Particulars});
+            if (Payees.includes(Name)) {
+              console.log('Payee already exist!!');
+            } else {
+              Payees.push({Account, Name, Particulars});
+            }
           },
         },
       ],
