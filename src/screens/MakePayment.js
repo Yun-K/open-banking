@@ -2,7 +2,8 @@ import React from 'react';
 import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ManagePayment from './Managepayment';
+import ManagePayment, {ChoicePayees} from './Managepayment';
+import {Payees} from './Managepayment';
 
 import {
   SafeAreaView,
@@ -18,6 +19,7 @@ import {
   Button,
   TextInput,
   Alert,
+  RefreshControl,
 } from 'react-native';
 
 import {
@@ -28,11 +30,22 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
 const MakePayment = ({navigation}) => {
-  const [Accountnumber, onChangeAccount] = React.useState('Account Number');
-  const [Amountnumber, onChangeAmount] = React.useState('Enter Amount');
-  const [TheirRef, thRef] = React.useState('Enter reference');
-  const [YourRef, yoRef] = React.useState('Enter reference');
+  let [Accountnumber, onChangeAccount] = React.useState(null);
+  const [Amountnumber, onChangeAmount] = React.useState(null);
+  const [TheirRef, thRef] = React.useState(null);
+  const [YourRef, yoRef] = React.useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    console.log(ChoicePayees);
+    wait(20).then(() => setRefreshing(false));
+  }, []);
 
   const Show = () => {
     Alert.alert('Confirmation', 'Are you sure you want to pay this account?', [
@@ -44,10 +57,20 @@ const MakePayment = ({navigation}) => {
       {text: 'Confirm', onPress: () => navigation.navigate('Payment')},
     ]);
   };
+  let account = {};
+
+  //get the account number form the choice payee
+  if (ChoicePayees != null) {
+    account = ChoicePayees.map(doc => doc.Account);
+  }
 
   return (
     <SafeAreaView style={Scrollstyles.container}>
-      <ScrollView style={Scrollstyles.scrollView}>
+      <ScrollView
+        style={Scrollstyles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         {/* First Part for the Select Account*/}
         <Text
           style={{
@@ -114,8 +137,9 @@ const MakePayment = ({navigation}) => {
           </Text>
           <TextInput
             style={Scrollstyles.input}
-            onChangeText={onChangeAccount}
+            onChangeText={text => onChangeAccount(text)}
             value={Accountnumber}
+            placeholder="Account Number"
           />
         </View>
         {/* Third Part for Enter amount */}
@@ -125,6 +149,7 @@ const MakePayment = ({navigation}) => {
             style={Scrollstyles.input}
             onChangeText={onChangeAmount}
             value={Amountnumber}
+            placeholder="Enter Amount"
           />
         </View>
 
@@ -135,6 +160,7 @@ const MakePayment = ({navigation}) => {
             style={Scrollstyles.input}
             onChangeText={thRef}
             value={TheirRef}
+            placeholder="Enter reference"
           />
 
           <Text style={Scrollstyles.text}>Your Reference :</Text>
@@ -142,6 +168,7 @@ const MakePayment = ({navigation}) => {
             style={Scrollstyles.input}
             onChangeText={yoRef}
             value={YourRef}
+            placeholder="Enter reference"
           />
         </View>
         <View style={{marginTop: 20, marginBottom: 20}}>

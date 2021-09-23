@@ -32,10 +32,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
-const Payees = [
+let Payees = [
   {Account: 1, Name: 'name01', Reference: ''},
   {Account: 2, Name: 'name02', Reference: ''},
 ];
+let ChoicePayees = [];
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -70,14 +71,13 @@ const ManagePayment = ({navigation}) => {
           text: 'Confirm',
           onPress: () => {
             navigation.navigate('MakePayment');
-            // Payees.push({Account, Name, Particulars});
+            ChoicePayees = Payees.filter(Payee => Payee.Name == Name);
           },
         },
         {
           text: 'Delete',
           onPress: () => {
-            // console.log(Payees.includes(Name) + 'Deleted');
-            Payees.filter(Payee => Payee.Name !== Name);
+            Payees = Payees.filter(Payee => Payee.Name !== Name);
           },
         },
       ],
@@ -199,6 +199,6 @@ const Managestyles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-export {Payees};
+export {Payees, ChoicePayees};
 
 export default ManagePayment;
