@@ -41,9 +41,12 @@ Insert gif or link to demo
   
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+~~please look at the report~~
 
+## Demo video link
   
+> link
+
 ## Tech Stack
 
 **Client:** React-Native

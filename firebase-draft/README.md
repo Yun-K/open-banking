@@ -1,6 +1,8 @@
 # introduction
 
-This repo is for testing the basic fuction of firebase. For now, the draft is in `draft.js`. I looked up the following website to get start:
+This repo is for testing purpose, in which to test the CRUD api fuction to see whether firebase can meet the expected outcome. 
+
+~~For now, the draft is in `draft.js`. I looked up the following website to get start:~~
 > https://github.com/komavideo/LearnFirebase
 >
 > https://firebase.google.com/docs/reference/admin/node

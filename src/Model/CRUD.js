@@ -1,3 +1,8 @@
+/**
+ * Useless js, it is only used by node to debug to see whether the api can connect to the firebase.
+ */
+
+
 import Fire from './Fire.js';
 import BankAccount from './BankAccount.js';
 import Bank from './Bank.js';
