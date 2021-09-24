@@ -29,7 +29,9 @@ import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import PayeeViewModel from '../ViewModel/PayeeViewModel';
 
 const HStack = createNativeStackNavigator();
-
+/**
+ * const bank account with three instance, Image,Nmae , and two accounts
+ */
 const BankAccounts = [
   {
     Image: require('../screens/HomeScreenImage/ANZ.jpg'),
@@ -50,7 +52,11 @@ const BankAccounts = [
     Account1: '20-202000-01',
   },
 ];
-
+/**
+ * home screen horizontal sliding menu
+ * @param {*} param0 
+ * @returns 
+ */
 const HomeScreen = ({navigation}) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const wait = timeout => {
@@ -62,7 +68,9 @@ const HomeScreen = ({navigation}) => {
     console.log(BankAccounts);
     wait(20).then(() => setRefreshing(false));
   }, []);
-
+/**
+ * return three s=banks on the scrollViews
+ */
   return (
     <View>
       <ScrollView
@@ -83,7 +91,7 @@ const HomeScreen = ({navigation}) => {
           </Text>
           <View style={{height: 130, marginTop: 20}}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
-              {BankAccounts.map(Acc => {
+              {BankAccounts.map(Acc => {//implement the BankAccounts and name it acc
                 return (
                   <View style={styles.AccountView} key={Acc.Name}>
                     <View style={styles.ImageView}>
@@ -118,7 +126,7 @@ const HomeScreen = ({navigation}) => {
     </View>
   );
 };
-
+// CSS-liked styels
 const styles = StyleSheet.create({
   container: {
     flex: 1,
