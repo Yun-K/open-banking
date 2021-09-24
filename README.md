@@ -43,9 +43,6 @@ Insert gif or link to demo
 
 ~~please look at the report~~
 
-## Demo video link
-  
-> link
 
 ## Tech Stack
 
