@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
 import GPS from './GPS';
 import Setting from './Setting';
+import GeoLocation from './GeoLocation'
 
 import {
     SafeAreaView,
@@ -80,7 +81,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
-            <Tab.Screen name="Find Nearest Bank" component={GPS} options={{
+            <Tab.Screen name="Find Nearest Bank" component={GeoLocation} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
                         <Image

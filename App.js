@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
+import type { Node } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,12 +29,13 @@ import {
 
 import HomeScreen from './src/screens/HomeScreen';
 import Tabs from './src/screens/Tabs';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddBankScreen from './src/screens/AddBankScreen';
 import MakePayment from './src/screens/MakePayment';
 import Managepayment from './src/screens/Managepayment';
 import AddPayee from './src/screens/AddPayee';
+import GPS from './src/screens/GPS';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
@@ -44,12 +45,13 @@ const MyStack = () => {
         <Stack.Screen
           name="Home1"
           component={Tabs}
-          options={{title: 'Welcome'}}
+          options={{ title: 'Open-Banking' }}
         />
         <Stack.Screen name="AddBankScreen" component={AddBankScreen} />
         <Stack.Screen name="MakePayment" component={MakePayment} />
         <Stack.Screen name="ManagePayment" component={Managepayment} />
         <Stack.Screen name="AddPayee" component={AddPayee} />
+        <Stack.Screen name="GPS" component={GPS} />
       </Stack.Navigator>
     </NavigationContainer>
   );
