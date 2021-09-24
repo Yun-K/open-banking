@@ -34,25 +34,31 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Payment from './Payment';
 
+
+
+/**
+ * create the tab navigator
+ * The Tab Navigator for the button bar
+ * @param {*} param0
+ * @returns
+ */
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
+    /**
+     * Render
+     */
     return (
         <Tab.Navigator
             tabBarOptions={{
                 showLabel: true,
                 style: {
-                    // display: 'flex',
                     position: 'absolute',
-                    // bottom: 25,
-                    // left: 20,
-                    // right: 20,
-                    // elevation: 0,
                     backgroundColor: '#9FA8DA',
-                    // borderRadius: 15,
                     height: 200
                 }
             }}
         >
+            {/* adding screen homescreen */}
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
@@ -67,6 +73,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
+            {/* adding screen paymentscreen */}
             <Tab.Screen name="Payment" component={Payment} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
@@ -81,6 +88,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
+            {/* adding screen FindNearestBankscreen */}
             <Tab.Screen name="Find Nearest Bank" component={GeoLocation} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
@@ -95,6 +103,7 @@ const Tabs = () => {
                     </View>
                 ),
             }} />
+            {/* adding screen settingscreen */}
             <Tab.Screen name="Setting" component={Setting} options={{
                 tabBarIcon: ({ focused }) => (
                     <View>
