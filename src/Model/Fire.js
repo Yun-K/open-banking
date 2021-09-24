@@ -37,5 +37,5 @@ class Fire {
         this.FieldValue = firebase.firestore.FieldValue;
     }
 }
-Fire.shared = new Fire(); //shared Fire instance, other js within the Model layer will depend on this.
+Fire.shared = new Fire(); //shared Fire instance, other js within the Model layer depend on this to connect to firebase.
 export default Fire;

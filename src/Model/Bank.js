@@ -10,12 +10,15 @@ import PayeeViewModel from '../ViewModel/PayeeViewModel.js';
 
 class Bank {
 
-    constructor() {
+    /**
+     * design to use builder design pattern, so use setter method to set fields
+     * And use build() to check whether necessuary methods are assigned.
+     */
+    constructor() {}
 
-    }
-
-
-
+    //============================================================================
+    // Setter methods to set fields
+    //============================================================================
     set_bankName(bankName) {
         this.bankName = bankName;
     }
@@ -32,7 +35,8 @@ class Bank {
     }
 
     /**
-     * check whether all fields are met the condition, and push this new instance to firebase.
+     * Will be invoked when a new Bank instanced is assigned.
+     * To check whether all fields are met the condition, and push this new instance to firebase.
      * 
      * Also, create the associated 2 bank account instances, and push them  into firebase.
      * The associated account id default set as the Bank id+'-00' for saving and  '01' for streamLine
@@ -64,12 +68,14 @@ class Bank {
     }
 
 
-    //=============================================
+    //============================================================================
     // Below are the Firebase CRUD
-    //=============================================
+    //============================================================================
 
     /**
-     * push this Bank insatnce into the firebase
+     * This function is invoked if and only if this instance with id is not in the firebase.
+     * 
+     * If not exist in firebase, then push this BankAccount insatnce into the firebase
      * 
      */
     addToFirebase() {
@@ -96,10 +102,11 @@ class Bank {
     }
 
     /**
-     * TODO:this function most likely will not be called since dont really need it
+     * this function most likely will not be called since dont really need it, since delete Bank from cloud will let user lost all their
+     *  money and assests.
      *
      */
-    async delete_from_database() {
+    async delete_from_firebase() {
         if (this.dataBaseID === -1) {
             var message = this.dataBaseID;
             throw Error('This Bank instance is not in firebase: ' + (message || ''));
@@ -108,10 +115,13 @@ class Bank {
         let deleteDoc = await Fire.shared.db.collection('Bank').doc(this.dataBaseID).delete();
         console.log(deleteDoc);
         console.log('delete this Bank instance from Firebase successfully!')
-
-
     }
 
+    /**
+     * Update fields and push to database.
+     * Will add a field of update time that in server Time stamp
+     * @returns the updated instance from database as the promise type
+     */
     async update_to_firebase() {
         const ref = Fire.shared.db.collection('Bank').doc(this.id);
         let res = await ref.update({
@@ -130,9 +140,12 @@ class Bank {
     }
 
     /**
-     * TODO: not successfully 
+     * Get and return the Bank instance from the firebase.
+     *
+     * NOte: this is an async function, so it will return promise!!
+     * 
      * @param {*} id_in 
-     * @returns 
+     * @returns the specificied instance with id_in from database as the promise type
      */
     static async get_from_firebase(id_in) {
         // Firestore data converter

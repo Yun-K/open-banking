@@ -14,6 +14,12 @@ class Payee {
         this.accountID = accountID;
     }
 
+
+    /**
+     * Will be invoked when a new Payee instance is assigned.
+     * To check whether all fields are met the condition, and push this new instance to firebase.
+     * 
+     */
     async build() {
         if (this.accountID === null || this.id === null) {
             throw errors.ArgumentNull("Can not have any null field")

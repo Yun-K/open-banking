@@ -41,25 +41,27 @@ class BankAccountViewModel {
         return await BankAccount.get_from_firebase(id);
     }
 
-    // /**
-    //  * Pass in the BankID, return the account logs from firebase
-    //  * @param {*} bankID 
-    //  * @returns 
-    //  */
-    // static async getAccountLogs(bankID) {
-    //     return await BankAccount.get_from_firebase(bankID).logs;
-    // }
-    // /**
-    //  * Pass in the BankID, return the account balance from firebase
-    //  * @param {*} bankID 
-    //  * @returns 
-    //  */
-    // static async getAccountBalance(bankID) {
-    //     return await BankAccount.get_from_firebase(bankID).balance;
-    //     clear.clearAppCache(() => {
-    //         console.log("success clear")
-    //     })
-    // }
+    /**
+     * Pass in the BankID, return the account logs from firebase
+     * @param {*} bankID 
+     * @returns 
+     */
+    static async getAccountLogs(bankID) {
+        return await BankAccount.get_from_firebase(bankID)['logs'];
+    }
+
+
+    /**
+     * Pass in the BankID, return the account balance from firebase
+     * @param {*} bankID 
+     * @returns 
+     */
+    static async getAccountBalance(bankID) {
+        return await BankAccount.get_from_firebase(bankID)['balance'];
+        // clear.clearAppCache(() => {
+        //     console.log("success clear")
+        // })
+    }
 
 
 

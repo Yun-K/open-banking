@@ -107,10 +107,13 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 //===============================================
 // for bank debug
 //===============================================
-let addBank = BankViewModel.addBank('ANZ', '102290-11-11', 'Yun', '12345')
-
-addBank.then((result) => {
-    console.log(result)
+// let addBank = BankViewModel.addBank('ANZ', '102290-11-11', 'Yun', '12345')
+let firebase_obj = BankViewModel.getBank('1022-11-11')
+firebase_obj.then((bank) => {
+    console.log("\n\nCall:\n BankViewModel.getBank('1022-11-11').then((bank)=>{\n\tconsole.log(bank)\n})\n")
+    console.log(bank)
+    console.log('\n\nThen Call: console.log(bank[\'userName\'])')
+    console.log(bank['userName'])
 })
 
 
@@ -123,7 +126,7 @@ addBank.then((result) => {
 // for payee debug
 //===============================================
 
-let addedPayee = PayeeViewModel.addPayee('Yun', '11-11-11-01')
-addedPayee.then((payee) => {
-    console.log(payee)
-})
+// let addedPayee = PayeeViewModel.addPayee('Yun', '11-11-11-01')
+// addedPayee.then((payee) => {
+//     console.log(payee)
+// })

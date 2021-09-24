@@ -8,7 +8,14 @@ import PayeeViewModel from '../ViewModel/PayeeViewModel.js';
 
 class BankAccount {
 
+
+
+    /**
+     * design to use builder design pattern, so use setter method to set fields
+     * And use build() to check whether necessuary methods are assigned.
+     */
     constructor() {
+        // logs records the payment and transation history.
         //use push() to push to the stack,
         //and pop() to pop from the stack
         this.logs = [];
@@ -42,6 +49,14 @@ class BankAccount {
         this.balance = balance;
     }
 
+
+    /**
+     * Will be invoked when a new Bank instanced is assigned.
+     * To check whether all fields are met the condition, and push this new instance to firebase.
+     * 
+     * Also, create the associated 2 bank account instances, and push them  into firebase.
+     * The associated account id default set as the Bank id+'-00' for saving and  '01' for streamLine
+     */
     build() {
         if (this.id === null || this.balance === null || this.name === null) {
             throw "Can not have any null field"
@@ -59,7 +74,6 @@ class BankAccount {
      * 
      * If not exist in firebase, then push this BankAccount insatnce into the firebase
      * 
-     * TODO:? not sure whether need async and await
      */
     addToFirebase() {
         let upload = {
@@ -87,7 +101,7 @@ class BankAccount {
 
 
     /**
-     * 
+     * Transit the money from source(my_id) to target.
      * @param {*} target_id the unique target account id 
      * @param {*} amountToPay amount of money you want to pay to the target
      */
@@ -162,9 +176,11 @@ class BankAccount {
 
     /**
      * 
-     * Be invoked whenever balance is changed.
+     * Be invoked whenever balance is changed. Also,new log will be appended and update to firebase as well.
      * 
      * This will update new logs and balance changed.
+     * @returns the updated instance from database as the promise type
+     * 
      */
     async update_to_firebase() {
         const accountRef = await Fire.shared.db.collection('BankAccount').doc(this.id);
@@ -190,6 +206,8 @@ class BankAccount {
      * You need to get and handle this returned instance by using the promise way.
      * 
      * @param {*} ID the account id 
+     * @returns the specificied instance with id_in from database as the promise type
+     * 
      */
     static async get_from_firebase(id) {
         // Firestore data converter

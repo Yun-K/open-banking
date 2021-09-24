@@ -12,7 +12,7 @@ class BankViewModel {
     /**
      * To be able to add a Bank, we need to first check whether the password is valid, in which query and check if there is an matched instance in our database.
      * 
-     * If the password is incorrect, then throw exception 
+     * If the password is incorrect, then return null. 
      * otherwise  Return the instance from firebase 
      * 
      * @param {*} bankName 
