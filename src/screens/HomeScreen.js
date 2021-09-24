@@ -1,7 +1,7 @@
 import React from 'react';
-import type { Node } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type {Node} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AddBankScreen from './AddBankScreen';
 import {
   SafeAreaView,
@@ -23,7 +23,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { Card } from 'react-native-paper';
+import {Card} from 'react-native-paper';
 import BankViewModel from '../ViewModel/BankViewModel';
 import BankAccountViewModel from '../ViewModel/BankAccountViewModel';
 import PayeeViewModel from '../ViewModel/PayeeViewModel';
@@ -51,7 +51,7 @@ const BankAccounts = [
   },
 ];
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({navigation}) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -62,7 +62,6 @@ const HomeScreen = ({ navigation }) => {
     console.log(BankAccounts);
     wait(20).then(() => setRefreshing(false));
   }, []);
-
 
   return (
     <View>
@@ -79,10 +78,10 @@ const HomeScreen = ({ navigation }) => {
             height: 250,
           }}>
           <Text
-            style={{ fontSize: 24, fontWeight: '700', paddingHorizontal: 20 }}>
+            style={{fontSize: 24, fontWeight: '700', paddingHorizontal: 20}}>
             Banks
           </Text>
-          <View style={{ height: 130, marginTop: 20 }}>
+          <View style={{height: 130, marginTop: 20}}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
               {BankAccounts.map(Acc => {
                 return (
@@ -104,7 +103,7 @@ const HomeScreen = ({ navigation }) => {
                     style={styles.Imagestyles}
                   />
                 </View>
-                <View style={{ flex: 1, paddingTop: 10 }}>
+                <View style={{flex: 1, paddingTop: 10}}>
                   <Button
                     title="add here"
                     onPress={() => navigation.navigate('AddBankScreen')}
@@ -150,5 +149,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export { BankAccounts };
+export {BankAccounts};
 export default HomeScreen;

@@ -32,27 +32,42 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
+/**
+ * Set a array to store the deafult data.
+ */
 let Payees = [
   {Account: 1, Name: 'name01', Reference: ''},
   {Account: 2, Name: 'name02', Reference: ''},
 ];
 let ChoicePayees = [];
 
+// wait time
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-// ManagePayment
+/**
+ * ManagePayment
+ * manage the payee's information
+ * @param {*} param0
+ * @returns
+ */
 const ManagePayment = ({navigation}) => {
   const [Search, search] = React.useState('Search');
   const [refreshing, setRefreshing] = React.useState(false);
-
+  /**
+   * Refresh the ScrollView
+   */
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     console.log(Payees);
     wait(20).then(() => setRefreshing(false));
   }, []);
-
+  /**
+   * Let users manage payees and confirm user decisions
+   * @param {*} Name
+   * @param {*} Account
+   */
   const Show = (Name, Account) => {
     Alert.alert(
       'Confirmation',
@@ -84,6 +99,9 @@ const ManagePayment = ({navigation}) => {
     );
   };
 
+  /**
+   * Render
+   */
   return (
     <SafeAreaView>
       {/* for the Search  */}
@@ -99,7 +117,6 @@ const ManagePayment = ({navigation}) => {
         />
       </View>
       <View style={Managestyles.View}>
-        {/* TODO: make function each time can added a payees */}
         <TouchableOpacity
           style={Managestyles.Payees}
           onPress={() => navigation.navigate('AddPayee')}>
@@ -117,8 +134,6 @@ const ManagePayment = ({navigation}) => {
           }>
           <Text style={Managestyles.Text}>YOUR SAVED PAYEES</Text>
           {/* Payees (Kevin and Alvin)  */}
-          {/* <NewPayee name="Kevin" />
-          <NewPayee name="Alvin" /> */}
           {Payees.map(payee => {
             return (
               <View key={payee.Name}>
@@ -136,6 +151,9 @@ const ManagePayment = ({navigation}) => {
   );
 };
 
+/**
+ * styles
+ */
 const Managestyles = StyleSheet.create({
   container: {
     flex: 1,

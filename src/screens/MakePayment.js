@@ -30,10 +30,19 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+/**
+ * wait time
+ */
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
+/**
+ * Make Payment
+ *
+ * @param {*} param0
+ * @returns
+ */
 const MakePayment = ({navigation}) => {
   let [Accountnumber, onChangeAccount] = React.useState(null);
   const [Amountnumber, onChangeAmount] = React.useState(null);
@@ -41,12 +50,18 @@ const MakePayment = ({navigation}) => {
   const [YourRef, yoRef] = React.useState(null);
   const [refreshing, setRefreshing] = React.useState(false);
 
+  /**
+   * Refresh the view
+   */
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     console.log(ChoicePayees);
     wait(20).then(() => setRefreshing(false));
   }, []);
 
+  /**
+   * confirm user decisions
+   */
   const Show = () => {
     Alert.alert('Confirmation', 'Are you sure you want to pay this account?', [
       {
@@ -63,7 +78,9 @@ const MakePayment = ({navigation}) => {
   if (ChoicePayees != null) {
     account = ChoicePayees.map(doc => doc.Account);
   }
-
+  /**
+   * Render
+   */
   return (
     <SafeAreaView style={Scrollstyles.container}>
       <ScrollView
@@ -179,6 +196,9 @@ const MakePayment = ({navigation}) => {
   );
 };
 
+/**
+ * styles
+ */
 const Scrollstyles = StyleSheet.create({
   container: {
     flex: 1,
