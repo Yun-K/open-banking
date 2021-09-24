@@ -3,23 +3,26 @@ import { View, Text, Image, ScrollView, Button, Picker, StyleSheet, Alert, Touch
 import Modal from "react-native-modal";
 import { white } from "react-native-paper/lib/typescript/styles/colors";
 
-
+/**
+ * Geolocation
+ * Get the geolocation of the device
+ * @param {*} param0
+ * @returns
+ */
 const GeoLocation = ({ navigation }) => {
 
-    // var location = ""
-
+    //store location in a const variable
     const [location, setLocation] = useState(' ');
 
     navigator.geolocation = require('@react-native-community/geolocation');
-
+    //find coordinate method to find the geolocation
+    //
     const findCoordinates = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
-                // const location = JSON.stringify(position);
-                // location => setLocation(location);
-                // setState({ location });
-                // location = JSON.stringify(position);
+                //set location into the const variable
                 setLocation(JSON.stringify(position));
+                //pop up the alert form to show the geolocation and give user option to the map view
                 Alert.alert(
                     "Your Location Coordinator",
                     JSON.stringify(position),
@@ -43,9 +46,14 @@ const GeoLocation = ({ navigation }) => {
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
     };
-
+    /**
+     * Render
+     */
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF' }}>
+
+            {/* TouchableOpacity with onpress action to findCoordinates */}
+
             <TouchableOpacity onPress={findCoordinates}>
                 <Text >Press to find your Coordinate </Text>
             </TouchableOpacity>

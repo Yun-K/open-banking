@@ -30,6 +30,12 @@ import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 
 const image = [];
 const BankName = [];
+/**
+ * AddBank
+ * Add a new Bank account into the bank list.
+ * @param {*} param0
+ * @returns
+ */
 const AddBankScreen = ({navigation}) => {
   const [selectedValue, setSelectedValue] = useState('Please select bank');
   const [Account, id] = React.useState(null);
@@ -38,6 +44,9 @@ const AddBankScreen = ({navigation}) => {
   let Image = {};
   let Name = {};
   let Account1 = {};
+  /**
+   * set Image value
+   */
   const setImage = () => {
     Account1 = ' ';
     if (selectedValue == 'BNZ') {
@@ -52,6 +61,9 @@ const AddBankScreen = ({navigation}) => {
     }
   };
 
+  /**
+   *  Remind to confirm the user to add a new bank.
+   */
   const Confirmation = () =>
     Alert.alert('Confirmation', 'Are you sure that you want to add the bank?', [
       {
@@ -70,9 +82,13 @@ const AddBankScreen = ({navigation}) => {
       },
     ]);
 
+  /**
+   * Render
+   */
   return (
     <View style={styles.container}>
       <Text>Please Pick your Bank Institution </Text>
+      {/* pick one of the bank */}
       <Picker
         selectedValue={selectedValue}
         style={{height: 50, width: 150}}
@@ -81,7 +97,7 @@ const AddBankScreen = ({navigation}) => {
         <Picker.Item label="BNZ" value="BNZ" />
         <Picker.Item label="WestPac" value="WestPac" />
       </Picker>
-
+      {/* Input Account */}
       <Text>Please Enter Your Account </Text>
       <TextInput
         style={styles.input}
@@ -89,6 +105,7 @@ const AddBankScreen = ({navigation}) => {
         value={Account}
         placeholder="Account ID"
       />
+      {/* Input Password */}
       <Text>Please Enter Your Password </Text>
       <TextInput
         style={styles.input}
@@ -102,6 +119,9 @@ const AddBankScreen = ({navigation}) => {
   );
 };
 
+/**
+ * styles
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

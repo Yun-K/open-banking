@@ -32,22 +32,22 @@ const GPS = ({ navigation }) => {
 
 
   const [selectedValue, setSelectedValue] = useState("Which bank are you looking for?");
-
+//state for the ANZ button
   const [isANZModalVisible, setIsANZModalVisible] = React.useState(false);
-
+//state for the BNZ button
   const [isBNZModalVisible, setIsBNZModalVisible] = React.useState(false);
-
+//state for the westpec button
   const [isWESTModalVisible, setIsWESTModalVisible] = React.useState(false);
-
+//click ANZ button event
   const handleANZModal = () => setIsANZModalVisible(() => !isANZModalVisible);
-
+//click BNZ button event
   const handleBNZModal = () => setIsBNZModalVisible(() => !isBNZModalVisible);
-
+//click WestPec button event
   const handleWESTModal = () => setIsWESTModalVisible(() => !isWESTModalVisible);
 
   return (
 
-
+//Image of the map with cross scroll view (Horizontal and Verticle)
     <View style={{ flex: 2, paddingLeft: 0, paddingTop: 20, height: 250 }}>
       <View style={{ flex: 2, paddingLeft: 0, height: 50 }}>
         <ScrollView>
@@ -60,26 +60,15 @@ const GPS = ({ navigation }) => {
         </ScrollView>
       </View>
 
-      {/* <View style={styles.container}>
-    <Text style={{fontSize: 20, fontWeight: '700'}}>Which bank Institute are you looking for? </Text>
-    <Picker
-        selectedValue={selectedValue}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-        mode="dropdown" 
-        style={styles.picker}
-    >
-        <Picker.Item label="ANZ" value="ANZ" onPress={handleModal}/>
-        <Picker.Item label="BNZ" value="BNZ" />
-        <Picker.Item label="WestPac" value="WestPac" />
-    </Picker> */}
-      {/* </View> */}
+      
+      {/* three buttons for ANZ, BNZ and Westpec*/}
       <Text style={{ fontSize: 20, fontWeight: '700', paddingBottom: 20, textAlign: "center" }}>Which bank Institute are you looking for? </Text>
       <Button title="ANZ" onPress={handleANZModal} color="blue" />
       <Button title="BNZ" onPress={handleBNZModal} />
       <Button title="WestPec" onPress={handleWESTModal} color="red" />
       <Modal isVisible={isANZModalVisible}>
         <View style={{ flex: 1 }}>
-          <Text style={styles.modal}>ANZ Bank address:</Text>
+          <Text style={styles.modal}>ANZ Bank address:</Text>{/*ANZ Modal event mouse click change*/}
           {ANZ.map(acc => {
             return (
               <View key={acc.Name}>
@@ -96,7 +85,7 @@ const GPS = ({ navigation }) => {
         </View>
       </Modal>
 
-      <Modal isVisible={isBNZModalVisible}>
+      <Modal isVisible={isBNZModalVisible}>{/*BNZ Modal event mouse click change*/}
         <View style={{ flex: 1 }}>
           <Text style={styles.modal}>BNZ Bank address:</Text>
           {BNZ.map(acc => {
@@ -115,7 +104,7 @@ const GPS = ({ navigation }) => {
         </View>
       </Modal>
 
-      <Modal isVisible={isWESTModalVisible}>
+      <Modal isVisible={isWESTModalVisible}>{/*WestPec Modal event mouse click change*/}
         <View style={{ flex: 1 }}>
           <Text style={styles.modal}>WestPec Bank address:</Text>
           {WESTPEC.map(acc => {
@@ -138,7 +127,7 @@ const GPS = ({ navigation }) => {
     </View >
   );
 }
-
+// banks addresses lists
 const ANZ = [
   {
     Address: '22 Willis Street, Wellington Central, Wellington 6011',
@@ -196,7 +185,7 @@ const WESTPEC = [
   },
 ];
 
-
+// CSS-liked styles
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

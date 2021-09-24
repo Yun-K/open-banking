@@ -2,7 +2,6 @@ import React from 'react';
 import type {Node} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import DialogInput from 'react-native-dialog-input';
 import {Payees} from './Managepayment';
 
 import {
@@ -28,11 +27,20 @@ import {
 import {render} from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
 import ManagePayment from './Managepayment';
 
+/**
+ * Add Payee Page
+ * add new payee into the list.
+ * @param {*} param0
+ * @returns
+ */
 const AddPayee = ({navigation}) => {
   const [Name, name] = React.useState(null);
   const [Account, account] = React.useState(null);
   const [Particulars, part] = React.useState(null);
 
+  /**
+   * Remind users to confirm account and name
+   */
   const Show = () => {
     Alert.alert(
       'Confirmation',
@@ -61,10 +69,12 @@ const AddPayee = ({navigation}) => {
       ],
     );
   };
-
+  /**
+   * Render
+   */
   return (
     <SafeAreaView>
-      {/* for the Name */}
+      {/* Input the Name */}
       <View style={Managestyles.View}>
         <Text style={{fontSize: 18, marginTop: 10}}> Name </Text>
         <TextInput
@@ -74,6 +84,7 @@ const AddPayee = ({navigation}) => {
           placeholder="Person or company"
         />
       </View>
+      {/* Input Bank account  */}
       <View style={Managestyles.View}>
         <Text style={{fontSize: 18}}> Account No. </Text>
         <TextInput
@@ -91,7 +102,7 @@ const AddPayee = ({navigation}) => {
         />
       </View>
       <Text>ON THEIR STATEMENT</Text>
-
+      {/* Input the Reference */}
       <View style={Managestyles.View}>
         <Text style={Managestyles.statementText}> Particulars </Text>
         <TextInput
@@ -112,6 +123,7 @@ const AddPayee = ({navigation}) => {
           value={Particulars}
         />
       </View>
+      {/* Save button */}
       <View>
         <Button title="Save" onPress={Show} />
       </View>
@@ -119,6 +131,9 @@ const AddPayee = ({navigation}) => {
   );
 };
 
+/**
+ *  View style
+ */
 const Managestyles = StyleSheet.create({
   container: {
     flex: 1,
