@@ -1,10 +1,9 @@
 
 # Open Banking app
 
-This app is a third party application APP that allows manage different bank accounts from different bank institutions on one single platform, services including card management, make payments, users’ financial information management ,etc.
+This app is aimed at users who have multiple bank cards, which allows the user to manage different bank accounts from different bank institutions. The goal is to allow the user to easily add and manage all cards from different banks. Services include card management, making payments and transactions, users’ financial information management, GPS to find nearest corresponding banks, etc.
 
-This app can easily manage all bank cards from different banks, and can do any operations such as make payments and make transactions. Therefore, this app is aiming for users who have multiple bank cards.
-
+> NOTE: it is worth to mention that due to the lack of maintaince on firebase settings, and the lack of the testing, this app most like cannot work properly as expect. Hence, it is just a project to practise in order to accumulate the skills.
 
 
 
@@ -15,7 +14,9 @@ This app can easily manage all bank cards from different banks, and can do any o
 - [@Ze Chen](https://gitlab.ecs.vuw.ac.nz/chenze)
 - [@Patrick Zhang](https://gitlab.ecs.vuw.ac.nz/zhangruiy)
 - [@Conglang Wang](https://gitlab.ecs.vuw.ac.nz/wangcong)
-  
+
+> [Iteration plan and issue backlog that we've written before development, also contains some wireframes ](https://www.mubucm.com/doc/1h4eaiOv)  
+
 ## Features
 
 - multi-banks management system
@@ -35,14 +36,14 @@ This app can easily manage all bank cards from different banks, and can do any o
 ## Demo
 
 Insert gif or link to demo
-
-`We need to record the demo videl`
+`Will be put later`
 
   
 ## Screenshots
 
-~~please look at the report~~
+`Will be put later`
 
+~~please look at the report~~
 
 ## Tech Stack
 
